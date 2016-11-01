@@ -15,6 +15,15 @@
 		036FDA951DC8906800E91C9F /* AlgorithmiaSwiftDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036FDA941DC8906800E91C9F /* AlgorithmiaSwiftDemoTests.swift */; };
 		036FDAA01DC8906800E91C9F /* AlgorithmiaSwiftDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036FDA9F1DC8906800E91C9F /* AlgorithmiaSwiftDemoUITests.swift */; };
 		036FDAAF1DC8931100E91C9F /* AlgorithmiaClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036FDAAE1DC8931100E91C9F /* AlgorithmiaClient.swift */; };
+		036FDAB11DC8940600E91C9F /* Algorithmia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036FDAB01DC8940600E91C9F /* Algorithmia.swift */; };
+		036FDABB1DC8BBD900E91C9F /* AlgorithmiaAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036FDAB91DC8BBD900E91C9F /* AlgorithmiaAuth.swift */; };
+		036FDABC1DC8BBD900E91C9F /* AlgorithmiaSimpleAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036FDABA1DC8BBD900E91C9F /* AlgorithmiaSimpleAuth.swift */; };
+		036FDABE1DC8BC9200E91C9F /* AlgoAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036FDABD1DC8BC9200E91C9F /* AlgoAPIClient.swift */; };
+		036FDAC01DC8C18F00E91C9F /* AlgoEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036FDABF1DC8C18F00E91C9F /* AlgoEntity.swift */; };
+		036FDAC21DC8CD4400E91C9F /* AlgoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036FDAC11DC8CD4400E91C9F /* AlgoRequest.swift */; };
+		036FDAC91DC8DF8900E91C9F /* Algorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036FDAC81DC8DF8900E91C9F /* Algorithm.swift */; };
+		036FDACD1DC8E1E000E91C9F /* AlgorithmRef.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036FDACC1DC8E1E000E91C9F /* AlgorithmRef.swift */; };
+		036FDACF1DC8EA1500E91C9F /* AlgoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036FDACE1DC8EA1500E91C9F /* AlgoResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +58,15 @@
 		036FDA9F1DC8906800E91C9F /* AlgorithmiaSwiftDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlgorithmiaSwiftDemoUITests.swift; sourceTree = "<group>"; };
 		036FDAA11DC8906800E91C9F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		036FDAAE1DC8931100E91C9F /* AlgorithmiaClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlgorithmiaClient.swift; sourceTree = "<group>"; };
+		036FDAB01DC8940600E91C9F /* Algorithmia.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Algorithmia.swift; sourceTree = "<group>"; };
+		036FDAB91DC8BBD900E91C9F /* AlgorithmiaAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlgorithmiaAuth.swift; sourceTree = "<group>"; };
+		036FDABA1DC8BBD900E91C9F /* AlgorithmiaSimpleAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlgorithmiaSimpleAuth.swift; sourceTree = "<group>"; };
+		036FDABD1DC8BC9200E91C9F /* AlgoAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlgoAPIClient.swift; sourceTree = "<group>"; };
+		036FDABF1DC8C18F00E91C9F /* AlgoEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlgoEntity.swift; sourceTree = "<group>"; };
+		036FDAC11DC8CD4400E91C9F /* AlgoRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlgoRequest.swift; sourceTree = "<group>"; };
+		036FDAC81DC8DF8900E91C9F /* Algorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Algorithm.swift; sourceTree = "<group>"; };
+		036FDACC1DC8E1E000E91C9F /* AlgorithmRef.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlgorithmRef.swift; sourceTree = "<group>"; };
+		036FDACE1DC8EA1500E91C9F /* AlgoResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlgoResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,10 +149,43 @@
 		036FDAAD1DC8922E00E91C9F /* Algorithmia */ = {
 			isa = PBXGroup;
 			children = (
+				036FDAC71DC8DF8900E91C9F /* Algorithm */,
+				036FDAB71DC8BBBD00E91C9F /* Client */,
 				036FDAAE1DC8931100E91C9F /* AlgorithmiaClient.swift */,
+				036FDAB01DC8940600E91C9F /* Algorithmia.swift */,
 			);
 			name = Algorithmia;
 			path = ../Algorithmia;
+			sourceTree = "<group>";
+		};
+		036FDAB71DC8BBBD00E91C9F /* Client */ = {
+			isa = PBXGroup;
+			children = (
+				036FDAB81DC8BBD900E91C9F /* Auth */,
+				036FDABD1DC8BC9200E91C9F /* AlgoAPIClient.swift */,
+				036FDABF1DC8C18F00E91C9F /* AlgoEntity.swift */,
+				036FDAC11DC8CD4400E91C9F /* AlgoRequest.swift */,
+				036FDACE1DC8EA1500E91C9F /* AlgoResponse.swift */,
+			);
+			path = Client;
+			sourceTree = "<group>";
+		};
+		036FDAB81DC8BBD900E91C9F /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				036FDAB91DC8BBD900E91C9F /* AlgorithmiaAuth.swift */,
+				036FDABA1DC8BBD900E91C9F /* AlgorithmiaSimpleAuth.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		036FDAC71DC8DF8900E91C9F /* Algorithm */ = {
+			isa = PBXGroup;
+			children = (
+				036FDAC81DC8DF8900E91C9F /* Algorithm.swift */,
+				036FDACC1DC8E1E000E91C9F /* AlgorithmRef.swift */,
+			);
+			path = Algorithm;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -272,8 +323,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				036FDA821DC8906800E91C9F /* ViewController.swift in Sources */,
+				036FDACD1DC8E1E000E91C9F /* AlgorithmRef.swift in Sources */,
+				036FDABE1DC8BC9200E91C9F /* AlgoAPIClient.swift in Sources */,
+				036FDAB11DC8940600E91C9F /* Algorithmia.swift in Sources */,
 				036FDA801DC8906800E91C9F /* AppDelegate.swift in Sources */,
+				036FDABC1DC8BBD900E91C9F /* AlgorithmiaSimpleAuth.swift in Sources */,
+				036FDABB1DC8BBD900E91C9F /* AlgorithmiaAuth.swift in Sources */,
+				036FDAC01DC8C18F00E91C9F /* AlgoEntity.swift in Sources */,
+				036FDAC91DC8DF8900E91C9F /* Algorithm.swift in Sources */,
 				036FDAAF1DC8931100E91C9F /* AlgorithmiaClient.swift in Sources */,
+				036FDAC21DC8CD4400E91C9F /* AlgoRequest.swift in Sources */,
+				036FDACF1DC8EA1500E91C9F /* AlgoResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
