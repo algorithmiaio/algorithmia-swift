@@ -10,6 +10,54 @@ import Foundation
 
 class AlgoRequest {
     
+    public enum HTTPMethod: String {
+        case GET    = "GET"
+        case POST   = "POST"
+        case PUT    = "PUT"
+        case DELETE = "DELETE"
+    }
+    
+    public enum MIMEType: String {
+        case TEXT_PLAIN         = "text/plain"
+        case APPLICATION_JSON   = "application/json"
+        case APPLICATION_OCT    = "application/octet-stream"
+    }
+    
+    public enum HTTPHeader {
+        
+        case ContentDisposition(String)
+        case Accept([String])
+        case ContentType(String)
+        case Custom(String, String)
+        
+        var key: String {
+            switch self {
+            case .ContentDisposition:
+                return "Content-Disposition"
+            case .Accept:
+                return "Accept"
+            case .ContentType:
+                return "Content-Type"
+            case .Custom(let key, _):
+                return key
+            }
+        }
+        
+        var requestHeaderValue: String {
+            switch self {
+            case .ContentDisposition(let disposition):
+                return disposition
+            case .Accept(let types):
+                return types.joined(separator: ", ")
+            case .ContentType(let type):
+                return type
+            case .Custom(_, let value):
+                return value
+            }
+        }
+        
+    }
+    
     let path:String
     let method:HTTPMethod
     var contentType:MIMEType?
@@ -31,10 +79,10 @@ class AlgoRequest {
         httpRequest.setValue(value, forHTTPHeaderField: key)
     }
     
-    func sendRequest(headers: [HTTPHeader], completion:@escaping AlgoCompletionHandler) {
+    func send(completion:@escaping AlgoCompletionHandler) {
         httpRequest.httpMethod = method.rawValue
         httpRequest.httpBody = data.body()
-        for header in headers {
+        for header in data.headers() {
             httpRequest.setValue(header.requestHeaderValue, forHTTPHeaderField: header.key)
         }
         let dataTask = session.dataTask(with: httpRequest) { (respData, resp, error) in
@@ -47,14 +95,5 @@ class AlgoRequest {
         }
         dataTask.resume()
     }
-    
-    func asText(completion: @escaping AlgoCompletionHandler) -> Self {
-        sendRequest(
-            headers     : [HTTPHeader.ContentType(MIMEType.TEXT_PLAIN.rawValue)],
-            completion  : completion
-        )
-        return self
-    }
-    
     
 }

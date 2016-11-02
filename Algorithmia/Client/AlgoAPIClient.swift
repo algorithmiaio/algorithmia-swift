@@ -8,59 +8,14 @@
 
 import Foundation
 
-public enum HTTPMethod: String {
-    case GET    = "GET"
-    case POST   = "POST"
-    case PUT    = "PUT"
-    case DELETE = "DELETE"
-}
 
-public enum MIMEType: String {
-    case TEXT_PLAIN         = "text/plain"
-    case APPLICATION_JSON   = "application/json"
-    case APPLICATION_OCT    = "application/octet-stream"
-}
-
-public enum HTTPHeader {
-    
-    case ContentDisposition(String)
-    case Accept([String])
-    case ContentType(String)
-    case Custom(String, String)
-    
-    var key: String {
-        switch self {
-        case .ContentDisposition:
-            return "Content-Disposition"
-        case .Accept:
-            return "Accept"
-        case .ContentType:
-            return "Content-Type"
-        case .Custom(let key, _):
-            return key
-        }
-    }
-    
-    var requestHeaderValue: String {
-        switch self {
-        case .ContentDisposition(let disposition):
-            return disposition
-        case .Accept(let types):
-            return types.joined(separator: ", ")
-        case .ContentType(let type):
-            return type
-        case .Custom(_, let value):
-            return value
-        }
-    }
-    
-}
 
 typealias AlgoCompletionHandler = (AlgoResponse,Error?)-> Void
 /**
  * A minimal HTTP client
  */
 class AlgoAPIClient {
+    
     
     var auth:AlgorithmiaAuth? = nil
     static let apiBaseURL=URL(string: "https://api.algorithmia.com/v1/algo/")!
@@ -79,10 +34,11 @@ class AlgoAPIClient {
     
     
     func post(path:String, data:AlgoEntity, completion:@escaping AlgoCompletionHandler) -> AlgoRequest {
-        let request = AlgoRequest(path: path, session: session, method: HTTPMethod.POST, data: data)
+        let request = AlgoRequest(path: path, session: session, method: AlgoRequest.HTTPMethod.POST, data: data)
         self.auth?.authenticate(request: request)
         
-        return request.asText(completion: completion)
+        request.send(completion: completion)
+        return request;
         
     }
     
