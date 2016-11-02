@@ -9,22 +9,21 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        let client = Algorithmia.client(simpleKey: "simeH+d9MCtPoMSpXS0qjIUJuuF1")
+        // Use your API key from Algorithmia account
+        let client = Algorithmia.client(simpleKey: AppDelegate.ALGO_API_KEY)
         let algo = client.algo(algoUri: "algo://demo/Hello/0.1.1");
         
-        _ = algo.pipe(input: "erik" )?.asText { output, resp, error in
-            print ("---------------")
-            if (error != nil) {
-                print("\nError: " + (error?.localizedDescription)!)
+        _ = algo.pipe(input: "erik", completion: { resp, error in
+            if (error == nil) {
+                print(resp.getText())
             }
             else {
-                print("\nSuccess: " + output!)
+                print(error)
             }
-        }
+        })
         
         
         

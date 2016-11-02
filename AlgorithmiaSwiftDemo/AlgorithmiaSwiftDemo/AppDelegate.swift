@@ -10,7 +10,7 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    static let ALGO_API_KEY = "SIMPLE_API_KEY" // Set your Algorithmia API Key
     var window: UIWindow?
 
 

@@ -56,6 +56,7 @@ public enum HTTPHeader {
     
 }
 
+typealias AlgoCompletionHandler = (AlgoResponse,Error?)-> Void
 /**
  * A minimal HTTP client
  */
@@ -77,11 +78,11 @@ class AlgoAPIClient {
     
     
     
-    func post(path:String, data:AlgoEntity) -> AlgoRequest {
+    func post(path:String, data:AlgoEntity, completion:@escaping AlgoCompletionHandler) -> AlgoRequest {
         let request = AlgoRequest(path: path, session: session, method: HTTPMethod.POST, data: data)
         self.auth?.authenticate(request: request)
         
-        return request
+        return request.asText(completion: completion)
         
     }
     

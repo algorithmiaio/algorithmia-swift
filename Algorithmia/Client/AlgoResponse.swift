@@ -12,6 +12,9 @@ class AlgoResponse {
     let rawData:Data
     var jsonData:[String: Any]?
     var error:String?
+    init() {
+        rawData = Data()
+    }
     init(data:Data) {
         self.rawData = data
         do {

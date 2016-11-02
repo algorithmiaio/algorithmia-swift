@@ -31,7 +31,7 @@ class AlgoRequest {
         httpRequest.setValue(value, forHTTPHeaderField: key)
     }
     
-    func sendRequest(headers: [HTTPHeader], completionHandler:@escaping(AlgoResponse?,Error?)-> Void) {
+    func sendRequest(headers: [HTTPHeader], completion:@escaping AlgoCompletionHandler) {
         httpRequest.httpMethod = method.rawValue
         httpRequest.httpBody = data.body()
         for header in headers {
@@ -39,22 +39,21 @@ class AlgoRequest {
         }
         let dataTask = session.dataTask(with: httpRequest) { (respData, resp, error) in
             if (respData == nil) {
-                completionHandler(nil,error)
+                completion(AlgoResponse(),error)
             }
             else {
-                completionHandler(AlgoResponse(data: respData!), nil)
+                completion(AlgoResponse(data: respData!), nil)
             }
         }
         dataTask.resume()
     }
     
-    func asText(completionHandler:@escaping(String?, AlgoResponse?, Error?)-> Void) -> Self {
+    func asText(completion: @escaping AlgoCompletionHandler) -> Self {
         sendRequest(
-            headers             : [HTTPHeader.ContentType(MIMEType.TEXT_PLAIN.rawValue)],
-            completionHandler   : { (response, error ) in
-            completionHandler(response?.getText(), response, error)
-        })
-        return self;
+            headers     : [HTTPHeader.ContentType(MIMEType.TEXT_PLAIN.rawValue)],
+            completion  : completion
+        )
+        return self
     }
     
     

@@ -16,13 +16,14 @@ class Algorithm {
         self.algoRef = algoRef
     }
     
-    func pipe(input:AnyObject!) -> AlgoRequest? {
+    func pipe(input:AnyObject!, completion:@escaping AlgoCompletionHandler) -> AlgoRequest? {
         if let stringInput = input as? String {
-            return client?.apiClient.post(path: algoRef.getPath(), data: AlgoStringEntity(entity: stringInput))
+            return client?.apiClient.post(path: algoRef.getPath(), data: AlgoStringEntity(entity: stringInput), completion: completion )
         }
         return nil
     }
-    func pipe(input:String!) -> AlgoRequest? {
-        return client?.apiClient.post(path: algoRef.getPath(), data: AlgoStringEntity(entity: input))
+    func pipe(input:String!, completion:@escaping AlgoCompletionHandler) -> AlgoRequest? {
+        return client?.apiClient.post(path: algoRef.getPath(), data: AlgoStringEntity(entity: input), completion: completion)
+        
     }
 }
