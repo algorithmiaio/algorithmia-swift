@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		036C93571DCA5D9E00E2EE97 /* AlgorithmiaConf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036C93561DCA5D9E00E2EE97 /* AlgorithmiaConf.swift */; };
+		036C93591DCAC5E600E2EE97 /* AlgoError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036C93581DCAC5E600E2EE97 /* AlgoError.swift */; };
 		036FDA801DC8906800E91C9F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036FDA7F1DC8906800E91C9F /* AppDelegate.swift */; };
 		036FDA821DC8906800E91C9F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036FDA811DC8906800E91C9F /* ViewController.swift */; };
 		036FDA851DC8906800E91C9F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 036FDA831DC8906800E91C9F /* Main.storyboard */; };
@@ -46,6 +47,7 @@
 
 /* Begin PBXFileReference section */
 		036C93561DCA5D9E00E2EE97 /* AlgorithmiaConf.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlgorithmiaConf.swift; sourceTree = "<group>"; };
+		036C93581DCAC5E600E2EE97 /* AlgoError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlgoError.swift; sourceTree = "<group>"; };
 		036FDA7C1DC8906800E91C9F /* AlgorithmiaSwiftDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AlgorithmiaSwiftDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		036FDA7F1DC8906800E91C9F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		036FDA811DC8906800E91C9F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 			children = (
 				036FDAC81DC8DF8900E91C9F /* Algorithm.swift */,
 				036FDACC1DC8E1E000E91C9F /* AlgorithmRef.swift */,
+				036C93581DCAC5E600E2EE97 /* AlgoError.swift */,
 			);
 			path = Algorithm;
 			sourceTree = "<group>";
@@ -338,6 +341,7 @@
 				036FDAAF1DC8931100E91C9F /* AlgorithmiaClient.swift in Sources */,
 				036FDAC21DC8CD4400E91C9F /* AlgoRequest.swift in Sources */,
 				036FDACF1DC8EA1500E91C9F /* AlgoResponse.swift in Sources */,
+				036C93591DCAC5E600E2EE97 /* AlgoError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

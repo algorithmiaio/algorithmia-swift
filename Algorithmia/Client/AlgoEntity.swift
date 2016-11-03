@@ -9,23 +9,23 @@
 import Foundation
 
 class AlgoEntity {
-    
+    var data:Data?
     func headers() -> [AlgoRequest.HTTPHeader] {
         return []
     }
     
     func body() -> Data? {
-        return Data()
+        return data
     }
     
     
 }
 
 class AlgoStringEntity:AlgoEntity {
-    var entity:String
     
     init(entity:String) {
-        self.entity = entity
+        super.init()
+        self.data = entity.data(using: .utf8)
     }
     
     override func headers() -> [AlgoRequest.HTTPHeader] {
@@ -33,8 +33,33 @@ class AlgoStringEntity:AlgoEntity {
     }
     
     override func body() -> Data? {
-        return entity.data(using: String.Encoding.utf8)
+        return data
     }
 }
 
+class AlgoJSONEntity:AlgoEntity {
+    
+    init(plain:String) throws {
+        super.init()
+        self.data = plain.data(using: .utf8)
+    }
+    
+    init(entity:Any) throws {
+        super.init()
+        try self.data = JSONSerialization.data(withJSONObject: entity, options: [])
+    }
+    
+    
+    
+    override func headers() -> [AlgoRequest.HTTPHeader] {
+        return [AlgoRequest.HTTPHeader.ContentType(AlgoRequest.MIMEType.APPLICATION_JSON.rawValue)]
+    }
+    
+    override func body() -> Data? {
+        return data
+       
+    }
+    
+    
+}
 

@@ -22,13 +22,18 @@ class AlgoResponse {
         }catch _ {
            self.jsonData = nil
         }
+        
     }
     
-    func get()->[String: Any]? {
-        return jsonData
+    func get()->Any? {
+        return jsonData?["result"]
     }
     
     func getText() -> String? {
         return jsonData?["result"] as? String
+    }
+    
+    func getJSON() -> Any {
+        return jsonData?["result"]
     }
 }

@@ -90,7 +90,7 @@ class AlgoRequest {
                 completion(AlgoResponse(),error)
             }
             else {
-                completion(AlgoResponse(data: respData!), nil)
+                completion(AlgoResponse(data: respData!), error)
             }
         }
         dataTask.resume()
