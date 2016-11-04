@@ -16,14 +16,40 @@ class Algorithm {
         self.algoRef = algoRef
     }
     
-    func pipe(input:AnyObject!, completion:@escaping AlgoCompletionHandler) -> AlgoRequest? {
+    func pipe(input:Any!, completion:@escaping AlgoCompletionHandler) -> AlgoRequest? {
         if let stringInput = input as? String {
-            return client?.apiClient.post(path: algoRef.getPath(), data: AlgoStringEntity(entity: stringInput), completion: completion )
+            return pipe(text: stringInput, completion: completion)
         }
-        return nil
+        else {
+            return pipe(json: input, completion: completion)
+        }
     }
-    func pipe(input:String!, completion:@escaping AlgoCompletionHandler) -> AlgoRequest? {
-        return client?.apiClient.post(path: algoRef.getPath(), data: AlgoStringEntity(entity: input), completion: completion)
+    
+    @discardableResult func pipe(text:String!, completion:@escaping AlgoCompletionHandler) -> AlgoRequest? {
+        return client?.apiClient.post(path: algoRef.getPath(), data: AlgoStringEntity(entity: text), completion: completion)
         
+    }
+    
+    @discardableResult func pipe(json:Any!, completion:@escaping AlgoCompletionHandler) -> AlgoRequest? {
+        do {
+            let entity = try AlgoJSONEntity(entity: json)
+            return client?.apiClient.post(path: algoRef.getPath(), data: entity, completion: completion)
+        } catch{
+            completion(AlgoResponse(),AlgoError.DataError("Data can not be serialized"))
+            return nil
+        }
+        
+        
+        
+    }
+    
+    @discardableResult func pipe(rawJson:String!, completion:@escaping AlgoCompletionHandler) -> AlgoRequest? {
+        do {
+            let entity = try AlgoJSONEntity(plain: rawJson)
+            return client?.apiClient.post(path: algoRef.getPath(), data: entity, completion: completion)
+        } catch let error{
+            completion(AlgoResponse(),AlgoError.DataError(error.localizedDescription))
+            return nil
+        }
     }
 }
