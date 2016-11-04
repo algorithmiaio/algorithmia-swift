@@ -26,7 +26,7 @@ class ViewController: UIViewController {
         })
         
         let listAlgo = client.algo(algoUri: "algo://WebPredict/ListAnagrams/0.1.0")
-        listAlgo.pipe(json: "[\"thing\", \"night\", \"other\"]") { (resp, error) in
+        listAlgo.pipe(rawJson: "[\"thing\", \"night\", \"other\"]") { (resp, error) in
             if (error == nil) {
                 print(resp.getJSON())
             }

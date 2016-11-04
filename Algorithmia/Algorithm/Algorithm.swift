@@ -43,9 +43,9 @@ class Algorithm {
         
     }
     
-    @discardableResult func pipe(json:String!, completion:@escaping AlgoCompletionHandler) -> AlgoRequest? {
+    @discardableResult func pipe(rawJson:String!, completion:@escaping AlgoCompletionHandler) -> AlgoRequest? {
         do {
-            let entity = try AlgoJSONEntity(plain: json)
+            let entity = try AlgoJSONEntity(plain: rawJson)
             return client?.apiClient.post(path: algoRef.getPath(), data: entity, completion: completion)
         } catch let error{
             completion(AlgoResponse(),AlgoError.DataError(error.localizedDescription))

@@ -46,6 +46,10 @@ class AlgoJSONEntity:AlgoEntity {
     
     init(entity:Any) throws {
         super.init()
+        if JSONSerialization.isValidJSONObject(entity) {
+            throw AlgoError.DataError("Not valid Json object")
+        }
+        
         try self.data = JSONSerialization.data(withJSONObject: entity, options: [])
     }
     
