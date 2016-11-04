@@ -25,6 +25,7 @@ class AlgoRequest {
     
     public enum HTTPHeader {
         
+        case UserAgent(String)
         case ContentDisposition(String)
         case Accept([String])
         case ContentType(String)
@@ -40,6 +41,8 @@ class AlgoRequest {
                 return "Content-Type"
             case .Custom(let key, _):
                 return key
+            case .UserAgent:
+                return "User-Agent"
             }
         }
         
@@ -53,6 +56,8 @@ class AlgoRequest {
                 return type
             case .Custom(_, let value):
                 return value
+            case .UserAgent(let agent):
+                return agent
             }
         }
         
@@ -74,7 +79,6 @@ class AlgoRequest {
         let url = URL(string: path, relativeTo: AlgoAPIClient.baseURL())
         self.httpRequest = URLRequest(url: url!)
     }
-    
     func setHeader(value:String?, key:String) {
         httpRequest.setValue(value, forHTTPHeaderField: key)
     }
@@ -82,9 +86,14 @@ class AlgoRequest {
     func send(completion:@escaping AlgoCompletionHandler) {
         httpRequest.httpMethod = method.rawValue
         httpRequest.httpBody = data.body()
-        for header in data.headers() {
+        
+        // Set User Agent header
+        let agentHeader = HTTPHeader.UserAgent(String(format:"algorithmia-swift/%@ (Swift %@)",Algo.CLIENT_VERSION,Algo.SWIFT_VERSION))
+        
+        for header in data.headers() + [agentHeader] {
             httpRequest.setValue(header.requestHeaderValue, forHTTPHeaderField: header.key)
         }
+        
         let dataTask = session.dataTask(with: httpRequest) { (respData, resp, error) in
             if (respData == nil) {
                 completion(AlgoResponse(),error)

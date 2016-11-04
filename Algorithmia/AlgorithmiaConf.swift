@@ -9,5 +9,6 @@
 import Foundation
 
 class Algo {
-    
+    static let SWIFT_VERSION = "3.0"
+    static let CLIENT_VERSION = "1.0"
 }
