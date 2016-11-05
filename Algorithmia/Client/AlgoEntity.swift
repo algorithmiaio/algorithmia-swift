@@ -10,8 +10,12 @@ import Foundation
 
 class AlgoEntity {
     var data:Data?
+    var dataType:AlgoRequest.MIMEType
+    init() {
+        dataType = .TEXT_PLAIN
+    }
     func headers() -> [AlgoRequest.HTTPHeader] {
-        return []
+        return [AlgoRequest.HTTPHeader.ContentType(dataType.rawValue)]
     }
     
     func body() -> Data? {
@@ -26,15 +30,10 @@ class AlgoStringEntity:AlgoEntity {
     init(entity:String) {
         super.init()
         self.data = entity.data(using: .utf8)
+        self.dataType = .TEXT_PLAIN
     }
     
-    override func headers() -> [AlgoRequest.HTTPHeader] {
-        return [AlgoRequest.HTTPHeader.ContentType(AlgoRequest.MIMEType.TEXT_PLAIN.rawValue)]
-    }
     
-    override func body() -> Data? {
-        return data
-    }
 }
 
 class AlgoJSONEntity:AlgoEntity {
@@ -42,6 +41,7 @@ class AlgoJSONEntity:AlgoEntity {
     init(plain:String) throws {
         super.init()
         self.data = plain.data(using: .utf8)
+        self.dataType = .APPLICATION_JSON
     }
     
     init(entity:Any) throws {
@@ -53,17 +53,15 @@ class AlgoJSONEntity:AlgoEntity {
         try self.data = JSONSerialization.data(withJSONObject: entity, options: [])
     }
     
+}
+
+class AlgoBinaryEntity:AlgoEntity {
     
-    
-    override func headers() -> [AlgoRequest.HTTPHeader] {
-        return [AlgoRequest.HTTPHeader.ContentType(AlgoRequest.MIMEType.APPLICATION_JSON.rawValue)]
+    init(data:Data) {
+        super.init()
+        self.data = data
+        self.dataType = .APPLICATION_OCT
     }
-    
-    override func body() -> Data? {
-        return data
-       
-    }
-    
     
 }
 
