@@ -9,8 +9,17 @@
 import Foundation
 
 class AlgoResponse {
-    let rawData:Data
+    
+    enum ContentType {
+        case UNKNOWN
+        case TEXT
+        case JSON
+        case BINARY
+    }
+    
+    private let rawData:Data
     var jsonData:[String: Any]?
+    var contentType:ContentType = .UNKNOWN
     var error:String?
     init() {
         rawData = Data()
@@ -19,8 +28,11 @@ class AlgoResponse {
         self.rawData = data
         do {
             try self.jsonData = JSONSerialization.jsonObject(with: rawData, options: JSONSerialization.ReadingOptions.allowFragments) as? [String: Any]
+            
+            self.contentType = .BINARY
         }catch _ {
-           self.jsonData = nil
+            self.jsonData = nil
+            
         }
         
     }
@@ -35,5 +47,16 @@ class AlgoResponse {
     
     func getJSON() -> Any {
         return jsonData?["result"]
+    }
+    
+    func getData() -> Data? {
+        let result = jsonData?["result"] as? String
+        if result != nil {
+            return Data(base64Encoded: result!)
+        }
+        else {
+            return nil
+        }
+        
     }
 }

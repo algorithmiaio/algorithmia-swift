@@ -35,12 +35,10 @@ class Algorithm {
             let entity = try AlgoJSONEntity(entity: json)
             return client?.apiClient.post(path: algoRef.getPath(), data: entity, completion: completion)
         } catch{
-            completion(AlgoResponse(),AlgoError.DataError("Data can not be serialized"))
+            completion(AlgoResponse(), AlgoError.DataError("Data can not be serialized"))
             return nil
         }
-        
-        
-        
+
     }
     
     @discardableResult func pipe(rawJson:String!, completion:@escaping AlgoCompletionHandler) -> AlgoRequest? {
@@ -48,8 +46,12 @@ class Algorithm {
             let entity = try AlgoJSONEntity(plain: rawJson)
             return client?.apiClient.post(path: algoRef.getPath(), data: entity, completion: completion)
         } catch let error{
-            completion(AlgoResponse(),AlgoError.DataError(error.localizedDescription))
+            completion(AlgoResponse(), AlgoError.DataError(error.localizedDescription))
             return nil
         }
+    }
+    
+    @discardableResult func pipe(data:Data!, completion:@escaping AlgoCompletionHandler) -> AlgoRequest? {
+        return client?.apiClient.post(path: algoRef.getPath(), data:  AlgoBinaryEntity(data: data), completion: completion)
     }
 }
