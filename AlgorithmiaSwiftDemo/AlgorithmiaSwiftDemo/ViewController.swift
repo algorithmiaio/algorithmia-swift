@@ -42,7 +42,7 @@ class ViewController: UIViewController {
         
         
         req = client.algo(algoUri: "algo://opencv/SmartThumbnail/2.1.3").pipe(data: UIImageJPEGRepresentation(image!, 0.3)) { (resp, error) in
-            let resultImage = UIImage(data:resp.getData()!)
+            let resultImage = UIImage(data:resp.getData())
             self.imageView.image = resultImage
         }
         

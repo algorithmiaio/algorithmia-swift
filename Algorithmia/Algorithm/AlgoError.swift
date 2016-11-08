@@ -9,5 +9,18 @@
 import Foundation
 
 enum AlgoError : Error {
+    case UnknownError
     case DataError(String)
+    case ProcessError(String)
+    
+    var localizedDescription: String {
+        switch self {
+        case .DataError(let message):
+            return message
+        case .ProcessError(let message):
+            return message
+        case .UnknownError:
+            return "Unknown Error"
+        }
+    }
 }
