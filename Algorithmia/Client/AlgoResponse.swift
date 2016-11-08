@@ -8,6 +8,7 @@
 
 import Foundation
 
+
 class AlgoResponse {
     
     enum ContentType {
@@ -45,7 +46,7 @@ class AlgoResponse {
         return jsonData?["result"] as? String
     }
     
-    func getJSON() -> Any {
+    func getJson() -> Any {
         return jsonData?["result"]
     }
     

@@ -8,6 +8,9 @@
 
 import Foundation
 
+/**
+ * Represents an Algorithmia algorithm that can be called
+ */
 class Algorithm {
     weak var client:AlgorithmiaClient?
     let algoRef:AlgorithmRef
@@ -16,20 +19,23 @@ class Algorithm {
         self.algoRef = algoRef
     }
     
-    func pipe(input:Any!, completion:@escaping AlgoCompletionHandler) -> AlgoRequest? {
-        if let stringInput = input as? String {
-            return pipe(text: stringInput, completion: completion)
-        }
-        else {
-            return pipe(json: input, completion: completion)
-        }
-    }
-    
+    /// Calls the Alogirhtmia API for given input
+    ///
+    /// - parameter text:       algorithm text input
+    /// - parameter completion: completion handler, return response and error
+    ///
+    /// - returns: Request object
     @discardableResult func pipe(text:String!, completion:@escaping AlgoCompletionHandler) -> AlgoRequest? {
         return client?.apiClient.post(path: algoRef.getPath(), data: AlgoStringEntity(entity: text), completion: completion)
         
     }
     
+    /// Calls the Alogirhtmia API for given input
+    ///
+    /// - parameter text:       algorithm json input, can be Any which is serializable in Json - eg. Array, Dictionary
+    /// - parameter completion: completion handler, return response and error
+    ///
+    /// - returns: Request object
     @discardableResult func pipe(json:Any!, completion:@escaping AlgoCompletionHandler) -> AlgoRequest? {
         do {
             let entity = try AlgoJSONEntity(entity: json)
@@ -41,6 +47,12 @@ class Algorithm {
 
     }
     
+    /// Calls the Alogirhtmia API for given input
+    ///
+    /// - parameter text:       algorithm raw json input, eg. [\"alice\",\"json\"]
+    /// - parameter completion: completion handler, return response and error
+    ///
+    /// - returns: Request object
     @discardableResult func pipe(rawJson:String!, completion:@escaping AlgoCompletionHandler) -> AlgoRequest? {
         do {
             let entity = try AlgoJSONEntity(plain: rawJson)
@@ -51,6 +63,12 @@ class Algorithm {
         }
     }
     
+    /// Calls the Alogirhtmia API for given input
+    ///
+    /// - parameter text:       algorithm binary input, Data
+    /// - parameter completion: completion handler, return response and error
+    ///
+    /// - returns: Request object
     @discardableResult func pipe(data:Data!, completion:@escaping AlgoCompletionHandler) -> AlgoRequest? {
         return client?.apiClient.post(path: algoRef.getPath(), data:  AlgoBinaryEntity(data: data), completion: completion)
     }

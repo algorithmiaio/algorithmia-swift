@@ -12,7 +12,7 @@ import Foundation
 
 typealias AlgoCompletionHandler = (AlgoResponse,Error?)-> Void
 /**
- * A minimal HTTP client
+ * A minimal API client
  */
 class AlgoAPIClient {
     
@@ -30,8 +30,6 @@ class AlgoAPIClient {
     public static func baseURL() -> URL {
         return apiBaseURL
     }
-    
-    
     
     func post(path:String, data:AlgoEntity, completion:@escaping AlgoCompletionHandler) -> AlgoRequest {
         let request = AlgoRequest(path: path, session: session, method: AlgoRequest.HTTPMethod.POST, data: data)
