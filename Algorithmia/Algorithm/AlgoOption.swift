@@ -9,7 +9,7 @@
 import Foundation
 
 enum AlgoOption {
-    case Timeout(Float)
+    case Timeout(Int)
     case Stdout(Bool)
     case Output(String)
     
