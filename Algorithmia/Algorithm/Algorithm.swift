@@ -14,6 +14,7 @@ import Foundation
 class Algorithm {
     weak var client:AlgorithmiaClient?
     let algoRef:AlgorithmRef
+    var options:[String: String] = [String: String]()
     init(client:AlgorithmiaClient, algoRef:AlgorithmRef) {
         self.client = client
         self.algoRef = algoRef
@@ -26,8 +27,18 @@ class Algorithm {
     ///
     /// - returns: Request object
     @discardableResult func pipe(text:String!, completion:@escaping AlgoCompletionHandler) -> AlgoRequest? {
-        return client?.apiClient.post(path: algoRef.getPath(), data: AlgoStringEntity(entity: text), completion: completion)
+        return client?.apiClient.post(path: algoRef.getPath(), data: AlgoStringEntity(entity: text), options: options, completion: completion)
         
+    }
+    
+    func setOption(_ option:AlgoOption) -> Self {
+        options[option.key] = option.value
+        return self
+    }
+    
+    func setOption(_ value:String, key:String) -> Self {
+        options[key] = value
+        return self
     }
     
     /// Calls the Alogirhtmia API for given input
@@ -39,7 +50,7 @@ class Algorithm {
     @discardableResult func pipe(json:Any!, completion:@escaping AlgoCompletionHandler) -> AlgoRequest? {
         do {
             let entity = try AlgoJSONEntity(entity: json)
-            return client?.apiClient.post(path: algoRef.getPath(), data: entity, completion: completion)
+            return client?.apiClient.post(path: algoRef.getPath(), data: entity, options: options, completion: completion)
         } catch{
             completion(AlgoResponse(), AlgoError.DataError("Data can not be serialized"))
             return nil
@@ -56,7 +67,7 @@ class Algorithm {
     @discardableResult func pipe(rawJson:String!, completion:@escaping AlgoCompletionHandler) -> AlgoRequest? {
         do {
             let entity = try AlgoJSONEntity(plain: rawJson)
-            return client?.apiClient.post(path: algoRef.getPath(), data: entity, completion: completion)
+            return client?.apiClient.post(path: algoRef.getPath(), data: entity, options: options, completion: completion)
         } catch let error{
             completion(AlgoResponse(), AlgoError.DataError(error.localizedDescription))
             return nil
@@ -70,6 +81,6 @@ class Algorithm {
     ///
     /// - returns: Request object
     @discardableResult func pipe(data:Data!, completion:@escaping AlgoCompletionHandler) -> AlgoRequest? {
-        return client?.apiClient.post(path: algoRef.getPath(), data:  AlgoBinaryEntity(data: data), completion: completion)
+        return client?.apiClient.post(path: algoRef.getPath(), data:  AlgoBinaryEntity(data: data), options:options, completion: completion)
     }
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		033A266F1DD2632A00F111FC /* AlgoOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033A266E1DD2632A00F111FC /* AlgoOption.swift */; };
 		036C93571DCA5D9E00E2EE97 /* AlgorithmiaConf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036C93561DCA5D9E00E2EE97 /* AlgorithmiaConf.swift */; };
 		036C93591DCAC5E600E2EE97 /* AlgoError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036C93581DCAC5E600E2EE97 /* AlgoError.swift */; };
 		036FDA801DC8906800E91C9F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036FDA7F1DC8906800E91C9F /* AppDelegate.swift */; };
@@ -47,6 +48,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		033A266E1DD2632A00F111FC /* AlgoOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlgoOption.swift; sourceTree = "<group>"; };
 		036C93561DCA5D9E00E2EE97 /* AlgorithmiaConf.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlgorithmiaConf.swift; sourceTree = "<group>"; };
 		036C93581DCAC5E600E2EE97 /* AlgoError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlgoError.swift; sourceTree = "<group>"; };
 		036FDA7C1DC8906800E91C9F /* AlgorithmiaSwiftDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AlgorithmiaSwiftDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -193,6 +195,7 @@
 				036FDAC81DC8DF8900E91C9F /* Algorithm.swift */,
 				036FDACC1DC8E1E000E91C9F /* AlgorithmRef.swift */,
 				036C93581DCAC5E600E2EE97 /* AlgoError.swift */,
+				033A266E1DD2632A00F111FC /* AlgoOption.swift */,
 			);
 			path = Algorithm;
 			sourceTree = "<group>";
@@ -353,6 +356,7 @@
 				036FDAAF1DC8931100E91C9F /* AlgorithmiaClient.swift in Sources */,
 				036FDAC21DC8CD4400E91C9F /* AlgoRequest.swift in Sources */,
 				036FDACF1DC8EA1500E91C9F /* AlgoResponse.swift in Sources */,
+				033A266F1DD2632A00F111FC /* AlgoOption.swift in Sources */,
 				036C93591DCAC5E600E2EE97 /* AlgoError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
