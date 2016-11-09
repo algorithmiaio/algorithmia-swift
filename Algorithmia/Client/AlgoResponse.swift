@@ -39,9 +39,14 @@ class AlgoResponse {
     init() {
         
     }
+    
     func set(data:Data) throws {
         self.rawData = data
-        try self.jsonData = JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as? [String: Any]
+        do {
+            try self.jsonData = JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as? [String: Any]
+        } catch {
+            return;
+        }
         
         if let errorInfo = self.jsonData?["error"] as? [String: Any] {
             var stacktrace:String?

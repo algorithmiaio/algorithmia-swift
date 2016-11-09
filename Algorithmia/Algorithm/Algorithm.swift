@@ -28,7 +28,6 @@ class Algorithm {
     /// - returns: Request object
     @discardableResult func pipe(text:String!, completion:@escaping AlgoCompletionHandler) -> AlgoRequest? {
         return client?.apiClient.post(path: algoRef.getPath(), data: AlgoStringEntity(entity: text), options: options, completion: completion)
-        
     }
     
     func setOption(_ option:AlgoOption) -> Self {
@@ -36,9 +35,12 @@ class Algorithm {
         return self
     }
     
-    func setOption(_ value:String, key:String) -> Self {
-        options[key] = value
-        return self
+    func set(timeout:Int) -> Self {
+        return setOption(.Timeout(timeout))
+    }
+    
+    func enable(stdout:Bool) -> Self {
+        return setOption(.Stdout(stdout))
     }
     
     /// Calls the Alogirhtmia API for given input

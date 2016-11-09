@@ -108,10 +108,30 @@ class AlgorithmiaTests: XCTestCase {
             }
         }
     }
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    
+    func testProcessFailed() {
+        let expect = expectation(description: "Test Process Failed")
+        let data = "Testing echo".data(using: .utf8)
+        _ = client?.algo(algoUri: "algo://test/random").pipe(data: data) { (resp, error) in
+            if let error = error as? AlgoError {
+                switch error {
+                case .ProcessError:
+                    print("Message",error)
+                    expect.fulfill()
+                    break;
+                default:
+                    break;
+                }
+                
+            } else {
+                XCTFail("Algorithmia Process Failed error: \(error)")
+            }
+            
+        }
+        waitForExpectations(timeout: 10.0) { error in
+            if let error = error {
+                XCTFail("WaitForExectationsWithTimeout error: \(error)")
+            }
         }
     }
     
