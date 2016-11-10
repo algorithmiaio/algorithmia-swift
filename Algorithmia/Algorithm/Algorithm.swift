@@ -20,21 +20,22 @@ class Algorithm {
         self.algoRef = algoRef
     }
     
-    /// Calls the Alogirhtmia API for given input
+    /// Set option
     ///
-    /// - parameter text:       algorithm text input
-    /// - parameter completion: completion handler, return response and error
+    /// - parameter option: option to set, eg. timeout, stdout, output
     ///
-    /// - returns: Request object
-    @discardableResult func pipe(text:String!, completion:@escaping AlgoCompletionHandler) -> AlgoRequest? {
-        return client?.apiClient.post(path: algoRef.getPath(), data: AlgoStringEntity(entity: text), options: options, completion: completion)
-    }
-    
+    /// - returns: Algorithm object
     func setOption(_ option:AlgoOption) -> Self {
         options[option.key] = option.value
         return self
     }
     
+    
+    /// Set timeout option for algorithm
+    ///
+    /// - parameter timeout: timeout for algorithm
+    ///
+    /// - returns: Algorithm object
     func set(timeout:Int) -> Self {
         return setOption(.Timeout(timeout))
     }
@@ -45,8 +46,18 @@ class Algorithm {
     
     /// Calls the Alogirhtmia API for given input
     ///
+    /// - parameter text:       algorithm text input
+    /// - parameter completion: completion handler, return response and error. For output, check getText(), getJson(), getData() in AlgoResponse object.
+    ///
+    /// - returns: Request object
+    @discardableResult func pipe(text:String!, completion:@escaping AlgoCompletionHandler) -> AlgoRequest? {
+        return client?.apiClient.post(path: algoRef.getPath(), data: AlgoStringEntity(entity: text), options: options, completion: completion)
+    }
+    
+    /// Calls the Alogirhtmia API for given input
+    ///
     /// - parameter text:       algorithm json input, can be Any which is serializable in Json - eg. Array, Dictionary
-    /// - parameter completion: completion handler, return response and error
+    /// - parameter completion: completion handler, return response and error. For output, check getText(), getJson(), getData() in AlgoResponse object.
     ///
     /// - returns: Request object
     @discardableResult func pipe(json:Any!, completion:@escaping AlgoCompletionHandler) -> AlgoRequest? {
@@ -62,8 +73,8 @@ class Algorithm {
     
     /// Calls the Alogirhtmia API for given input
     ///
-    /// - parameter text:       algorithm raw json input, eg. [\"alice\",\"json\"]
-    /// - parameter completion: completion handler, return response and error
+    /// - parameter rawJson:       algorithm raw json input, eg. [\"alice\",\"json\"]
+    /// - parameter completion: completion handler, return response and error. For output, check getText(), getJson(), getData() in AlgoResponse object.
     ///
     /// - returns: Request object
     @discardableResult func pipe(rawJson:String!, completion:@escaping AlgoCompletionHandler) -> AlgoRequest? {
@@ -78,8 +89,8 @@ class Algorithm {
     
     /// Calls the Alogirhtmia API for given input
     ///
-    /// - parameter text:       algorithm binary input, Data
-    /// - parameter completion: completion handler, return response and error
+    /// - parameter data:       algorithm binary input, Data
+    /// - parameter completion: completion handler, return response and error. For output, check getText(), getJson(), getData() in AlgoResponse object.
     ///
     /// - returns: Request object
     @discardableResult func pipe(data:Data!, completion:@escaping AlgoCompletionHandler) -> AlgoRequest? {

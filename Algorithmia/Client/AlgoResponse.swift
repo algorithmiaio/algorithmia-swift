@@ -34,6 +34,9 @@ class AlgoResponse {
     var rawData:Data?
     private var jsonData:[String: Any]?
     
+    /// Error
+    /// * message
+    /// * stacktrace
     var error:ErrorData?
     
     init() {
@@ -66,19 +69,36 @@ class AlgoResponse {
         return jsonData?["result"]
     }
     
+    
+    /// Get text output
+    /// @warning Please make sure it return text content, otherwise it can cause error. You can check content type from getMetadata() function
+    /// - returns: return text output.
     func getText() -> String {
-        return (jsonData?["result"] as? String)!
+        return jsonData?["result"] as! String
     }
     
+    /// Get json output
+    /// @warning Please make sure it return json content, otherwise it can cause error. You can check content type from getMetadata() function
+    /// - returns: return json output. It can be Dictionary or Array
     func getJson() -> Any {
         return jsonData?["result"]
     }
     
+    
+    /// Get binary output
+    /// @warning Please make sure it return binary content, otherwise it can cause error. You can check content type from getMetadata() function
+    /// - returns: return binary output.
     func getData() -> Data {
         let result = jsonData?["result"] as! String
         return Data(base64Encoded: result)!
     }
     
+    
+    /// Get metadata
+    ///
+    /// - returns: Metadata object 
+    /// * contentType: content type of metadata
+    /// * duration: duration time taken by algorithm
     func getMetadata() -> Metadata {
         var metadata:Metadata
         let metadataInfo = self.jsonData?["metadata"] as! [String: Any]
