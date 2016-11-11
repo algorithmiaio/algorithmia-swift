@@ -13,11 +13,8 @@ class AlgorithmiaTests: XCTestCase {
     var client:AlgorithmiaClient?
     override func setUp() {
         super.setUp()
-        
-        let ALGORITHMIA_API_KEY = "" // Your API Key
-        
+        let ALGORITHMIA_API_KEY = ProcessInfo.processInfo.environment["ALGORITHMIA_API_KEY"] ?? PLACE_API_KEY// Your API Key
         client = Algorithmia.client(simpleKey: ALGORITHMIA_API_KEY)
-        
         
     }
     

@@ -39,6 +39,7 @@
 		033A270A1DD4DCDA00F111FC /* AlgoDataObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033A27091DD4DCDA00F111FC /* AlgoDataObject.swift */; };
 		033A270C1DD4DE5000F111FC /* AlgoDataFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033A270B1DD4DE5000F111FC /* AlgoDataFile.swift */; };
 		03A6AD9E1DD64454004540E5 /* AlgoDataDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A6AD9D1DD64454004540E5 /* AlgoDataDirectory.swift */; };
+		03A6ADA01DD65227004540E5 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A6AD9F1DD65227004540E5 /* Helpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,7 @@
 		033A27091DD4DCDA00F111FC /* AlgoDataObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlgoDataObject.swift; sourceTree = "<group>"; };
 		033A270B1DD4DE5000F111FC /* AlgoDataFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlgoDataFile.swift; sourceTree = "<group>"; };
 		03A6AD9D1DD64454004540E5 /* AlgoDataDirectory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlgoDataDirectory.swift; sourceTree = "<group>"; };
+		03A6AD9F1DD65227004540E5 /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +133,7 @@
 		033A26C91DD31FBB00F111FC /* AlgorithmiaTests */ = {
 			isa = PBXGroup;
 			children = (
+				03A6AD9F1DD65227004540E5 /* Helpers.swift */,
 				033A26CA1DD31FBB00F111FC /* AlgorithmiaTests.swift */,
 				033A26CC1DD31FBB00F111FC /* Info.plist */,
 			);
@@ -326,6 +329,7 @@
 				033A26FC1DD3228400F111FC /* AlgoRequest.swift in Sources */,
 				033A26FD1DD3228400F111FC /* AlgoResponse.swift in Sources */,
 				033A26FE1DD3228D00F111FC /* AlgorithmiaAuth.swift in Sources */,
+				03A6ADA01DD65227004540E5 /* Helpers.swift in Sources */,
 				033A26FF1DD3228D00F111FC /* AlgorithmiaSimpleAuth.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
