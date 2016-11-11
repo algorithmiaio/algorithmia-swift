@@ -15,6 +15,7 @@ class AlgoRequest {
         case POST   = "POST"
         case PUT    = "PUT"
         case DELETE = "DELETE"
+        case HEAD   = "HEAD"
     }
     
     public enum MIMEType: String {
@@ -66,11 +67,20 @@ class AlgoRequest {
     let path:String
     let method:HTTPMethod
     var contentType:MIMEType?
-    let data:AlgoEntity
+    let data:AlgoEntity?
     var httpRequest:URLRequest?
     var session:URLSession
     var dataTask:URLSessionDataTask?
     var headers:[HTTPHeader]
+    
+    init(path:String, session:URLSession, method:HTTPMethod) {
+        self.path = path
+        self.method = method
+        self.session = session
+        let agentHeader = HTTPHeader.UserAgent(String(format:"algorithmia-swift/%@ (Swift %@)",Algo.CLIENT_VERSION,Algo.SWIFT_VERSION))
+        self.headers = [agentHeader]
+        self.data = nil
+    }
     
     init(path:String, session:URLSession, method:HTTPMethod, data:AlgoEntity) {
         self.path = path
@@ -79,7 +89,6 @@ class AlgoRequest {
         self.session = session
         let agentHeader = HTTPHeader.UserAgent(String(format:"algorithmia-swift/%@ (Swift %@)",Algo.CLIENT_VERSION,Algo.SWIFT_VERSION))
         self.headers = [agentHeader]
-        //self.httpRequest = URLRequest(url: URL(string: "http://localhost:3000")!)
     }
     
     func setHeader(value:String, key:String) {
@@ -92,21 +101,28 @@ class AlgoRequest {
         httpRequest.httpMethod = method.rawValue
         
         // HTTP headers
+        if let dataHeaders = data?.headers() {
+            headers.append(contentsOf: dataHeaders)
+        }
         
-        for header in data.headers() + headers {
+        for header in headers {
             httpRequest.addValue(header.requestHeaderValue, forHTTPHeaderField: header.key)
         }
         
         // HTTP Body
-        httpRequest.httpBody = data.body()
-        
+        httpRequest.httpBody = data?.body()
+        session.uploadTask(withStreamedRequest: httpRequest)
         // Send HTTP Request
-        dataTask = session.dataTask(with: httpRequest) { (respData, resp, error) in
+        dataTask = session.dataTask(with: httpRequest) { (respData, response, error) in
+            var code = 0
+            if let httpResponse = response as? HTTPURLResponse {
+                code = httpResponse.statusCode
+            }
             if (respData == nil) {
-                completion(AlgoResponse(),error)
+                completion(AlgoResponse(code: code),error)
             }
             else {
-                let response = AlgoResponse()
+                let response = AlgoResponse(code: code)
                 if (error != nil) {
                     completion(response, error)
                 }

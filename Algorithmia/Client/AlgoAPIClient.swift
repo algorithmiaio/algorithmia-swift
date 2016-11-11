@@ -18,7 +18,7 @@ class AlgoAPIClient {
     
     
     var auth:AlgorithmiaAuth? = nil
-    static let apiBaseURL=URL(string: "https://api.algorithmia.com/v1/algo/")!
+    static let apiBaseURL=URL(string: "https://api.algorithmia.com/")!
     
     var session:URLSession
     
@@ -38,6 +38,13 @@ class AlgoAPIClient {
     public static func baseURL() -> URL {
         return apiBaseURL
     }
+    
+    func send(method:AlgoRequest.HTTPMethod, path:String, completion:@escaping AlgoCompletionHandler) {
+        let request = AlgoRequest(path: path, session: session, method: method)
+        self.auth?.authenticate(request: request)
+        request.send(completion: completion)
+    }
+    
     
     func post(path:String, data:AlgoEntity, options:[String:String], completion:@escaping AlgoCompletionHandler) -> AlgoRequest {
         var queryPath = path

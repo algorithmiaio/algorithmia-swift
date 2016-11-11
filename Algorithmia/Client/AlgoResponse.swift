@@ -30,7 +30,7 @@ class AlgoResponse {
         var message:String
         var stacktrace:String?
     }
-    
+    var statusCode:Int=0
     var rawData:Data?
     private var jsonData:[String: Any]?
     
@@ -39,8 +39,8 @@ class AlgoResponse {
     /// * stacktrace
     var error:ErrorData?
     
-    init() {
-        
+    init(code:Int) {
+        self.statusCode = code
     }
     
     func set(data:Data) throws {
