@@ -14,6 +14,7 @@ class AlgoDataObject {
         case Directory
     }
     
+    
     let path:String
     
     let client:AlgoAPIClient
@@ -25,4 +26,9 @@ class AlgoDataObject {
         self.dataType = type
     }
     
+    struct DeletedResult {
+        let isSuccess:Bool
+        let count:Int
+    }
 }
+

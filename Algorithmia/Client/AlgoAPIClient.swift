@@ -11,6 +11,7 @@ import Foundation
 
 
 typealias AlgoCompletionHandler = (AlgoResponse,Error?)-> Void
+typealias AlgoDownloadCompletionHandler = (URL?,Error?)-> Void
 /**
  * A minimal API client
  */
@@ -45,18 +46,43 @@ class AlgoAPIClient {
         request.send(completion: completion)
     }
     
+    func put(path:String, data:AlgoEntity, completion:@escaping (Error?) -> Void) {
+        let request = AlgoRequest(path: path, session: session, method: .PUT, data: data)
+        self.auth?.authenticate(request: request)
+        request.sendData(completion: completion)
+    }
+    
+    func put(path:String, file:URL, completion:@escaping (Error?) -> Void) {
+        let request = AlgoRequest(path: path, session: session, method: .PUT)
+        self.auth?.authenticate(request: request)
+        request.send(file:file, completion: completion)
+    }
+    
+    func download(path:String, completion:@escaping AlgoDownloadCompletionHandler) {
+        let request = AlgoRequest(path: path, session: session, method: .GET)
+        self.auth?.authenticate(request: request)
+        request.download(completion: completion)
+    }
     
     func post(path:String, data:AlgoEntity, options:[String:String], completion:@escaping AlgoCompletionHandler) -> AlgoRequest {
         var queryPath = path
         if options.count>0 {
             queryPath = addQuery(path: path, parameters: options)
         }
-        let request = AlgoRequest(path: queryPath, session: session, method: AlgoRequest.HTTPMethod.POST, data: data)
+        let request = AlgoRequest(path: queryPath, session: session, method: .POST, data: data)
         self.auth?.authenticate(request: request)
         
         request.send(completion: completion)
         return request;
         
+    }
+    
+    func delete(path:String, completion:@escaping (Error?) -> Void) {
+        let request = AlgoRequest(path: path, session: session, method: .DELETE)
+        self.auth?.authenticate(request: request)
+        request.send { (resp, error) in
+            
+        }
     }
     
 }

@@ -39,6 +39,10 @@ class AlgoResponse {
     /// * stacktrace
     var error:ErrorData?
     
+    init() {
+        
+    }
+    
     init(code:Int) {
         self.statusCode = code
     }
