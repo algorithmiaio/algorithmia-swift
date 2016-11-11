@@ -11,7 +11,6 @@ import Foundation
 enum AlgoOption {
     case Timeout(Int)
     case Stdout(Bool)
-    case RawOutput
     case VoidOutput
     case Custom(String, String)
     
@@ -21,8 +20,6 @@ enum AlgoOption {
             return String(time)
         case .Stdout(let enabled):
             return String(enabled)
-        case .RawOutput:
-            return "raw"
         case .VoidOutput:
             return "void"
         case .Custom(_, let value):
@@ -36,8 +33,6 @@ enum AlgoOption {
             return "timeout"
         case .Stdout(_):
             return "stdout"
-        case .RawOutput:
-            return "output"
         case .VoidOutput:
             return "output"
         case .Custom(let key, _):

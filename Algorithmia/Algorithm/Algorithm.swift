@@ -40,7 +40,7 @@ class Algorithm {
         return setOption(.Timeout(timeout))
     }
     
-    func enable(stdout:Bool) -> Self {
+    func set(stdout:Bool) -> Self {
         return setOption(.Stdout(stdout))
     }
     
