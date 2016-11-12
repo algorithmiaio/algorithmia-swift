@@ -12,7 +12,7 @@ import Foundation
 
 typealias AlgoCompletionHandler = (AlgoResponse,Error?)-> Void
 /**
- * A minimal HTTP client
+ * A minimal API client
  */
 class AlgoAPIClient {
     
@@ -27,14 +27,24 @@ class AlgoAPIClient {
         self.session = URLSession(configuration: URLSessionConfiguration.default)
     }
     
+    func addQuery(path:String, parameters:[String:String]) -> String {
+        var array=[String]()
+        for (key,value) in parameters {
+            array.append(key+"="+value)
+        }
+        return path.appending("?"+array.joined(separator: "&"))
+    }
+    
     public static func baseURL() -> URL {
         return apiBaseURL
     }
     
-    
-    
-    func post(path:String, data:AlgoEntity, completion:@escaping AlgoCompletionHandler) -> AlgoRequest {
-        let request = AlgoRequest(path: path, session: session, method: AlgoRequest.HTTPMethod.POST, data: data)
+    func post(path:String, data:AlgoEntity, options:[String:String], completion:@escaping AlgoCompletionHandler) -> AlgoRequest {
+        var queryPath = path
+        if options.count>0 {
+            queryPath = addQuery(path: path, parameters: options)
+        }
+        let request = AlgoRequest(path: queryPath, session: session, method: AlgoRequest.HTTPMethod.POST, data: data)
         self.auth?.authenticate(request: request)
         
         request.send(completion: completion)

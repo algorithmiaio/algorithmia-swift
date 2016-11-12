@@ -67,31 +67,33 @@ class AlgoRequest {
     let method:HTTPMethod
     var contentType:MIMEType?
     let data:AlgoEntity
-    var httpRequest:URLRequest
+    var httpRequest:URLRequest?
     var session:URLSession
     var dataTask:URLSessionDataTask?
+    var headers:[HTTPHeader]
     
     init(path:String, session:URLSession, method:HTTPMethod, data:AlgoEntity) {
         self.path = path
         self.method = method
         self.data = data
         self.session = session
-        
-        let url = URL(string: path, relativeTo: AlgoAPIClient.baseURL())
-        self.httpRequest = URLRequest(url: url!)
+        let agentHeader = HTTPHeader.UserAgent(String(format:"algorithmia-swift/%@ (Swift %@)",Algo.CLIENT_VERSION,Algo.SWIFT_VERSION))
+        self.headers = [agentHeader]
         //self.httpRequest = URLRequest(url: URL(string: "http://localhost:3000")!)
     }
-    func setHeader(value:String?, key:String) {
-        httpRequest.setValue(value, forHTTPHeaderField: key)
+    
+    func setHeader(value:String, key:String) {
+        headers.append(HTTPHeader.Custom(key, value))
     }
     
     func send(completion:@escaping AlgoCompletionHandler) {
+        let url = URL(string: path, relativeTo: AlgoAPIClient.baseURL())
+        var httpRequest = URLRequest(url: url!)
         httpRequest.httpMethod = method.rawValue
         
         // HTTP headers
-        let agentHeader = HTTPHeader.UserAgent(String(format:"algorithmia-swift/%@ (Swift %@)",Algo.CLIENT_VERSION,Algo.SWIFT_VERSION))
         
-        for header in data.headers() + [agentHeader] {
+        for header in data.headers() + headers {
             httpRequest.addValue(header.requestHeaderValue, forHTTPHeaderField: header.key)
         }
         
@@ -104,7 +106,19 @@ class AlgoRequest {
                 completion(AlgoResponse(),error)
             }
             else {
-                completion(AlgoResponse(data: respData!), error)
+                let response = AlgoResponse()
+                if (error != nil) {
+                    completion(response, error)
+                }
+                else {
+                    do {
+                        try response.set(data: respData!)
+                        completion(response, error)
+                    } catch let e {
+                        completion(response, e)
+                    }
+                }
+                
             }
         }
         dataTask?.resume()

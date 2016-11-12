@@ -28,7 +28,7 @@ class ViewController: UIViewController {
         let listAlgo = client.algo(algoUri: "algo://WebPredict/ListAnagrams/0.1.0")
         listAlgo.pipe(rawJson: "[\"thing\", \"night\", \"other\"]") { (resp, error) in
             if (error == nil) {
-                print(resp.getJSON())
+                print(resp.getJson())
             }
             else {
                 print(error)
@@ -42,7 +42,7 @@ class ViewController: UIViewController {
         
         
         req = client.algo(algoUri: "algo://opencv/SmartThumbnail/2.1.3").pipe(data: UIImageJPEGRepresentation(image!, 0.3)) { (resp, error) in
-            let resultImage = UIImage(data:resp.getData()!)
+            let resultImage = UIImage(data:resp.getData())
             self.imageView.image = resultImage
         }
         

@@ -8,32 +8,62 @@
 
 import Foundation
 
+/**
+ * Represents an Algorithmia algorithm that can be called
+ */
 class Algorithm {
     weak var client:AlgorithmiaClient?
     let algoRef:AlgorithmRef
+    var options:[String: String] = [String: String]()
     init(client:AlgorithmiaClient, algoRef:AlgorithmRef) {
         self.client = client
         self.algoRef = algoRef
     }
     
-    func pipe(input:Any!, completion:@escaping AlgoCompletionHandler) -> AlgoRequest? {
-        if let stringInput = input as? String {
-            return pipe(text: stringInput, completion: completion)
-        }
-        else {
-            return pipe(json: input, completion: completion)
-        }
+    /// Set option
+    ///
+    /// - parameter option: option to set, eg. timeout, stdout, output
+    ///
+    /// - returns: Algorithm object
+    func setOption(_ option:AlgoOption) -> Self {
+        options[option.key] = option.value
+        return self
     }
     
+    
+    /// Set timeout option for algorithm
+    ///
+    /// - parameter timeout: timeout for algorithm
+    ///
+    /// - returns: Algorithm object
+    func set(timeout:Int) -> Self {
+        return setOption(.Timeout(timeout))
+    }
+    
+    func set(stdout:Bool) -> Self {
+        return setOption(.Stdout(stdout))
+    }
+    
+    /// Calls the Alogirhtmia API for given input
+    ///
+    /// - parameter text:       algorithm text input
+    /// - parameter completion: completion handler, return response and error. For output, check getText(), getJson(), getData() in AlgoResponse object.
+    ///
+    /// - returns: Request object
     @discardableResult func pipe(text:String!, completion:@escaping AlgoCompletionHandler) -> AlgoRequest? {
-        return client?.apiClient.post(path: algoRef.getPath(), data: AlgoStringEntity(entity: text), completion: completion)
-        
+        return client?.apiClient.post(path: algoRef.getPath(), data: AlgoStringEntity(entity: text), options: options, completion: completion)
     }
     
+    /// Calls the Alogirhtmia API for given input
+    ///
+    /// - parameter text:       algorithm json input, can be Any which is serializable in Json - eg. Array, Dictionary
+    /// - parameter completion: completion handler, return response and error. For output, check getText(), getJson(), getData() in AlgoResponse object.
+    ///
+    /// - returns: Request object
     @discardableResult func pipe(json:Any!, completion:@escaping AlgoCompletionHandler) -> AlgoRequest? {
         do {
             let entity = try AlgoJSONEntity(entity: json)
-            return client?.apiClient.post(path: algoRef.getPath(), data: entity, completion: completion)
+            return client?.apiClient.post(path: algoRef.getPath(), data: entity, options: options, completion: completion)
         } catch{
             completion(AlgoResponse(), AlgoError.DataError("Data can not be serialized"))
             return nil
@@ -41,17 +71,29 @@ class Algorithm {
 
     }
     
+    /// Calls the Alogirhtmia API for given input
+    ///
+    /// - parameter rawJson:       algorithm raw json input, eg. [\"alice\",\"json\"]
+    /// - parameter completion: completion handler, return response and error. For output, check getText(), getJson(), getData() in AlgoResponse object.
+    ///
+    /// - returns: Request object
     @discardableResult func pipe(rawJson:String!, completion:@escaping AlgoCompletionHandler) -> AlgoRequest? {
         do {
             let entity = try AlgoJSONEntity(plain: rawJson)
-            return client?.apiClient.post(path: algoRef.getPath(), data: entity, completion: completion)
+            return client?.apiClient.post(path: algoRef.getPath(), data: entity, options: options, completion: completion)
         } catch let error{
             completion(AlgoResponse(), AlgoError.DataError(error.localizedDescription))
             return nil
         }
     }
     
+    /// Calls the Alogirhtmia API for given input
+    ///
+    /// - parameter data:       algorithm binary input, Data
+    /// - parameter completion: completion handler, return response and error. For output, check getText(), getJson(), getData() in AlgoResponse object.
+    ///
+    /// - returns: Request object
     @discardableResult func pipe(data:Data!, completion:@escaping AlgoCompletionHandler) -> AlgoRequest? {
-        return client?.apiClient.post(path: algoRef.getPath(), data:  AlgoBinaryEntity(data: data), completion: completion)
+        return client?.apiClient.post(path: algoRef.getPath(), data:  AlgoBinaryEntity(data: data), options:options, completion: completion)
     }
 }
