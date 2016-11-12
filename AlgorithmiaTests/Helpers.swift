@@ -8,4 +8,4 @@
 
 import Foundation
 
-let PLACE_API_KEY = "%PLACE_API_KEY%"
+let ALGORITHMIA_API_KEY = "%PLACE_API_KEY%"
