@@ -27,7 +27,7 @@ class AlgoDataObject {
     }
     
     func exists(completion:@escaping (Bool,Error?)-> Void) {
-        _ = client.send(method:.HEAD, path: getUrl()) { (resp, error) in
+        _ = client.send(method:.HEAD, path: getUrl(), data:nil) { (resp, error) in
             if resp.statusCode == 200 {
                 completion(true, error)
             }

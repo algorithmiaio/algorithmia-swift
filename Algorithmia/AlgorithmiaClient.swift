@@ -27,4 +27,8 @@ class AlgorithmiaClient {
         return Algorithm(client: self, algoRef: AlgorithmRef(algoUri: algoUri))
     }
     
+    func file(_ path:String) -> AlgoDataFile {
+        return AlgoDataFile(client: apiClient, dataUrl: path)
+    }
+    
 }

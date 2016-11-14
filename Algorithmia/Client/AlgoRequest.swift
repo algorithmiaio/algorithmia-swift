@@ -152,7 +152,7 @@ class AlgoRequest {
         dataTask?.resume()
     }
     
-    func send(file:URL, completion:@escaping (Error?) -> Void) {
+    func send(file:URL, completion:@escaping AlgoDataCompletionHandler) {
         let url = URL(string: path, relativeTo: AlgoAPIClient.baseURL())
         var httpRequest = URLRequest(url: url!)
         httpRequest.httpMethod = method.rawValue
@@ -167,7 +167,7 @@ class AlgoRequest {
         
         // Send HTTP Request
         dataTask = session.uploadTask(with: httpRequest, fromFile: file) { (respData, response, error) in
-            completion(error)
+            completion(AlgoResponseData(response:response,data:respData), error)
         }
         
         dataTask?.resume()

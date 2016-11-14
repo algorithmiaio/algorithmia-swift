@@ -55,7 +55,7 @@ class AlgoAPIClient {
     
     func send(method:AlgoRequest.HTTPMethod, path:String, data:AlgoEntity?, completion:@escaping AlgoDataCompletionHandler) -> AlgoRequest {
 
-        let request = AlgoRequest(path: path, session: session, method: .POST, data: data)
+        let request = AlgoRequest(path: path, session: session, method: method, data: data)
         self.auth?.authenticate(request: request)
         
         request.send(completion: completion)
@@ -63,7 +63,7 @@ class AlgoAPIClient {
         
     }
     
-    func put(path:String, file:URL, completion:@escaping (Error?) -> Void) {
+    func put(path:String, file:URL, completion:@escaping AlgoDataCompletionHandler) {
         let request = AlgoRequest(path: path, session: session, method: .PUT, data:nil)
         self.auth?.authenticate(request: request)
         request.send(file:file, completion: completion)

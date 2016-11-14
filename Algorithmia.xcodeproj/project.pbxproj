@@ -41,6 +41,9 @@
 		03A6AD9E1DD64454004540E5 /* AlgoDataDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A6AD9D1DD64454004540E5 /* AlgoDataDirectory.swift */; };
 		03A6ADA01DD65227004540E5 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A6AD9F1DD65227004540E5 /* Helpers.swift */; };
 		03DC30CF1DD9F22300598A51 /* AlgoResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DC30CE1DD9F22300598A51 /* AlgoResponseData.swift */; };
+		03E397CA1DDA0C8400FB907D /* AlgoResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DC30CE1DD9F22300598A51 /* AlgoResponseData.swift */; };
+		03E397CB1DDA0C8900FB907D /* AlgoDataFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033A270B1DD4DE5000F111FC /* AlgoDataFile.swift */; };
+		03E397CC1DDA0C8D00FB907D /* AlgoDataObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033A27091DD4DCDA00F111FC /* AlgoDataObject.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -332,7 +335,10 @@
 				033A26FB1DD3228400F111FC /* AlgoEntity.swift in Sources */,
 				033A26FC1DD3228400F111FC /* AlgoRequest.swift in Sources */,
 				033A26FD1DD3228400F111FC /* AlgoResponse.swift in Sources */,
+				03E397CA1DDA0C8400FB907D /* AlgoResponseData.swift in Sources */,
 				033A26FE1DD3228D00F111FC /* AlgorithmiaAuth.swift in Sources */,
+				03E397CB1DDA0C8900FB907D /* AlgoDataFile.swift in Sources */,
+				03E397CC1DDA0C8D00FB907D /* AlgoDataObject.swift in Sources */,
 				03A6ADA01DD65227004540E5 /* Helpers.swift in Sources */,
 				033A26FF1DD3228D00F111FC /* AlgorithmiaSimpleAuth.swift in Sources */,
 			);

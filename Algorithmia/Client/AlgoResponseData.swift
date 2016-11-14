@@ -11,6 +11,11 @@ import Foundation
 class AlgoResponseData {
     var statusCode:Int=0
     var rawData:Data?
+    
+    init() {
+        
+    }
+    
     init(response:URLResponse?, data:Data?) {
         if let response = response as? HTTPURLResponse {
             statusCode = response.statusCode

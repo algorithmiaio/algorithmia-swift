@@ -14,7 +14,7 @@ class AlgoDataFile:AlgoDataObject {
     }
     
     func getString(completion:@escaping (String?, Error?) -> Void) {
-        _ = client.send(method:.GET, path: getUrl()) { (resp, error) in
+        _ = client.send(method:.GET, path: getUrl(), data:nil) { (resp, error) in
             if let data = resp.rawData {
                 completion(String(data: data, encoding: .utf8), error)
             }
@@ -36,23 +36,45 @@ class AlgoDataFile:AlgoDataObject {
     
     func put(data:Data, completion:@escaping (Error?) -> Void) {
         _ = client.send(method:.PUT, path: getUrl(), data: AlgoBinaryEntity(data:data)) { (resp, error) in
-            completion(error)
+            if resp.statusCode != 200 {
+                completion(AlgoError.DataError("Error code:" + String(resp.statusCode)))
+            }
+            else {
+                completion(error)
+            }
         }
     }
     
     func put(string:String, completion:@escaping (Error?) -> Void) {
         _ = client.send(method:.PUT, path: getUrl(), data: AlgoStringEntity(entity:string)) { (resp, error) in
-            completion(error)
+            if resp.statusCode != 200 {
+                completion(AlgoError.DataError("Error code:" + String(resp.statusCode)))
+            }
+            else {
+                completion(error)
+            }
         }
     }
     
     func put(file:URL, completion:@escaping (Error?) -> Void) {
-        client.put(path: getUrl(), file: file, completion: completion)
+        client.put(path: getUrl(), file: file) { (resp,error) in
+            if resp.statusCode != 200 {
+                completion(AlgoError.DataError("Error code:" + String(resp.statusCode)))
+            }
+            else {
+                completion(error)
+            }
+        }
     }
     
     func delete(completion:@escaping (Error?) -> Void) {
         _ = client.send(method: .DELETE, path: getUrl(), data: nil) { (resp, error) in
-            completion(error)
+            if resp.statusCode != 200 {
+                completion(AlgoError.DataError("Error code:" + String(resp.statusCode)))
+            }
+            else {
+                completion(error)
+            }
         }
     }
     
