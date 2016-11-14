@@ -40,6 +40,7 @@
 		033A270C1DD4DE5000F111FC /* AlgoDataFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033A270B1DD4DE5000F111FC /* AlgoDataFile.swift */; };
 		03A6AD9E1DD64454004540E5 /* AlgoDataDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A6AD9D1DD64454004540E5 /* AlgoDataDirectory.swift */; };
 		03A6ADA01DD65227004540E5 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A6AD9F1DD65227004540E5 /* Helpers.swift */; };
+		03DC30CF1DD9F22300598A51 /* AlgoResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DC30CE1DD9F22300598A51 /* AlgoResponseData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +77,7 @@
 		033A270B1DD4DE5000F111FC /* AlgoDataFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlgoDataFile.swift; sourceTree = "<group>"; };
 		03A6AD9D1DD64454004540E5 /* AlgoDataDirectory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlgoDataDirectory.swift; sourceTree = "<group>"; };
 		03A6AD9F1DD65227004540E5 /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		03DC30CE1DD9F22300598A51 /* AlgoResponseData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlgoResponseData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +160,7 @@
 				033A26E01DD320B800F111FC /* AlgoEntity.swift */,
 				033A26E11DD320B800F111FC /* AlgoRequest.swift */,
 				033A26E21DD320B800F111FC /* AlgoResponse.swift */,
+				03DC30CE1DD9F22300598A51 /* AlgoResponseData.swift */,
 				033A26E31DD320B800F111FC /* Auth */,
 			);
 			path = Client;
@@ -300,6 +303,7 @@
 				03A6AD9E1DD64454004540E5 /* AlgoDataDirectory.swift in Sources */,
 				033A26F11DD320B800F111FC /* AlgorithmiaAuth.swift in Sources */,
 				033A270A1DD4DCDA00F111FC /* AlgoDataObject.swift in Sources */,
+				03DC30CF1DD9F22300598A51 /* AlgoResponseData.swift in Sources */,
 				033A26EA1DD320B800F111FC /* Algorithmia.swift in Sources */,
 				033A26EF1DD320B800F111FC /* AlgoRequest.swift in Sources */,
 				033A26F01DD320B800F111FC /* AlgoResponse.swift in Sources */,

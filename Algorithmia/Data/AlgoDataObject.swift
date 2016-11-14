@@ -26,6 +26,22 @@ class AlgoDataObject {
         self.dataType = type
     }
     
+    func exists(completion:@escaping (Bool,Error?)-> Void) {
+        _ = client.send(method:.HEAD, path: getUrl()) { (resp, error) in
+            if resp.statusCode == 200 {
+                completion(true, error)
+            }
+            else {
+                completion(false, error)
+            }
+        }
+    }
+    
+    func getUrl() -> String {
+        
+        return "v1/data/" + self.path.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+    }
+    
     struct DeletedResult {
         let isSuccess:Bool
         let count:Int

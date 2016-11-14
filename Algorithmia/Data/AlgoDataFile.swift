@@ -13,17 +13,6 @@ class AlgoDataFile:AlgoDataObject {
         super.init(client: client, dataUrl: dataUrl, type: .File)
     }
     
-    func exists(completion:@escaping (Bool,Error?)-> Void) {
-        _ = client.send(method:.HEAD, path: getUrl()) { (resp, error) in
-            if resp.statusCode == 200 {
-                completion(true, error)
-            }
-            else {
-                completion(false, error)
-            }
-        }
-    }
-    
     func getString(completion:@escaping (String?, Error?) -> Void) {
         _ = client.send(method:.GET, path: getUrl()) { (resp, error) in
             if let data = resp.rawData {
@@ -36,7 +25,7 @@ class AlgoDataFile:AlgoDataObject {
     }
     
     func getData(completion:@escaping (Data?, Error?) -> Void) {
-        _ = client.send(method:.GET, path: getUrl()) { (resp, error) in
+        _ = client.send( method:.GET, path: getUrl(), data:nil) { (resp, error) in
             completion(resp.rawData, error)
         }
     }
@@ -46,11 +35,15 @@ class AlgoDataFile:AlgoDataObject {
     }
     
     func put(data:Data, completion:@escaping (Error?) -> Void) {
-        client.put(path: getUrl(), data: AlgoBinaryEntity(data:data) , completion: completion)
+        _ = client.send(method:.PUT, path: getUrl(), data: AlgoBinaryEntity(data:data)) { (resp, error) in
+            completion(error)
+        }
     }
     
     func put(string:String, completion:@escaping (Error?) -> Void) {
-        client.put(path: getUrl(), data: AlgoStringEntity(entity:string) , completion: completion)
+        _ = client.send(method:.PUT, path: getUrl(), data: AlgoStringEntity(entity:string)) { (resp, error) in
+            completion(error)
+        }
     }
     
     func put(file:URL, completion:@escaping (Error?) -> Void) {
@@ -58,11 +51,9 @@ class AlgoDataFile:AlgoDataObject {
     }
     
     func delete(completion:@escaping (Error?) -> Void) {
-        
+        _ = client.send(method: .DELETE, path: getUrl(), data: nil) { (resp, error) in
+            completion(error)
+        }
     }
     
-    func getUrl() -> String {
-
-        return "v1/data/" + self.path.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-    }
 }

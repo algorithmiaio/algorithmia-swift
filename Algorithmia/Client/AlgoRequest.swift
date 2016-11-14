@@ -73,16 +73,7 @@ class AlgoRequest {
     var dataTask:URLSessionTask?
     var headers:[HTTPHeader]
     
-    init(path:String, session:URLSession, method:HTTPMethod) {
-        self.path = path
-        self.method = method
-        self.session = session
-        let agentHeader = HTTPHeader.UserAgent(String(format:"algorithmia-swift/%@ (Swift %@)",Algo.CLIENT_VERSION,Algo.SWIFT_VERSION))
-        self.headers = [agentHeader]
-        self.data = nil
-    }
-    
-    init(path:String, session:URLSession, method:HTTPMethod, data:AlgoEntity) {
+    init(path:String, session:URLSession, method:HTTPMethod, data:AlgoEntity?) {
         self.path = path
         self.method = method
         self.data = data
@@ -95,7 +86,7 @@ class AlgoRequest {
         headers.append(HTTPHeader.Custom(key, value))
     }
     
-    func send(completion:@escaping AlgoCompletionHandler) {
+    func execute(completion:@escaping AlgoCompletionHandler) {
         let url = URL(string: path, relativeTo: AlgoAPIClient.baseURL())
         var httpRequest = URLRequest(url: url!)
         httpRequest.httpMethod = method.rawValue
@@ -139,7 +130,7 @@ class AlgoRequest {
         dataTask?.resume()
     }
     
-    func sendData(completion:@escaping (Error?) -> Void) {
+    func send(completion:@escaping AlgoDataCompletionHandler) {
         let url = URL(string: path, relativeTo: AlgoAPIClient.baseURL())
         var httpRequest = URLRequest(url: url!)
         httpRequest.httpMethod = method.rawValue
@@ -156,7 +147,7 @@ class AlgoRequest {
         httpRequest.httpBody = data?.body()
         // Send HTTP Request
         dataTask = session.dataTask(with: httpRequest) { (respData, response, error) in
-            completion(error)
+            completion(AlgoResponseData(response:response,data:respData), error)
         }
         dataTask?.resume()
     }
