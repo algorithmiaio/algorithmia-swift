@@ -9,8 +9,9 @@
 import Foundation
 
 
-
 typealias AlgoCompletionHandler = (AlgoResponse,Error?)-> Void
+typealias AlgoDataCompletionHandler = (AlgoResponseData,Error?)-> Void
+typealias AlgoDownloadCompletionHandler = (URL?,Error?)-> Void
 /**
  * A minimal API client
  */
@@ -18,7 +19,7 @@ class AlgoAPIClient {
     
     
     var auth:AlgorithmiaAuth? = nil
-    static let apiBaseURL=URL(string: "https://api.algorithmia.com/v1/algo/")!
+    static let apiBaseURL=URL(string: "https://api.algorithmia.com/")!
     
     var session:URLSession
     
@@ -39,17 +40,39 @@ class AlgoAPIClient {
         return apiBaseURL
     }
     
-    func post(path:String, data:AlgoEntity, options:[String:String], completion:@escaping AlgoCompletionHandler) -> AlgoRequest {
+    func execute(path:String, data:AlgoEntity, options:[String:String], completion:@escaping AlgoCompletionHandler) -> AlgoRequest {
         var queryPath = path
         if options.count>0 {
             queryPath = addQuery(path: path, parameters: options)
         }
-        let request = AlgoRequest(path: queryPath, session: session, method: AlgoRequest.HTTPMethod.POST, data: data)
+        let request = AlgoRequest(path: queryPath, session: session, method: .POST, data: data)
+        self.auth?.authenticate(request: request)
+        
+        request.execute(completion: completion)
+        return request;
+        
+    }
+    
+    func send(method:AlgoRequest.HTTPMethod, path:String, data:AlgoEntity?, completion:@escaping AlgoDataCompletionHandler) -> AlgoRequest {
+
+        let request = AlgoRequest(path: path, session: session, method: method, data: data)
         self.auth?.authenticate(request: request)
         
         request.send(completion: completion)
         return request;
         
+    }
+    
+    func put(path:String, file:URL, completion:@escaping AlgoDataCompletionHandler) {
+        let request = AlgoRequest(path: path, session: session, method: .PUT, data:nil)
+        self.auth?.authenticate(request: request)
+        request.send(file:file, completion: completion)
+    }
+    
+    func download(path:String, completion:@escaping AlgoDownloadCompletionHandler) {
+        let request = AlgoRequest(path: path, session: session, method: .GET, data:nil)
+        self.auth?.authenticate(request: request)
+        request.download(completion: completion)
     }
     
 }

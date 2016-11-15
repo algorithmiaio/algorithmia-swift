@@ -15,6 +15,7 @@ class AlgoRequest {
         case POST   = "POST"
         case PUT    = "PUT"
         case DELETE = "DELETE"
+        case HEAD   = "HEAD"
     }
     
     public enum MIMEType: String {
@@ -66,47 +67,52 @@ class AlgoRequest {
     let path:String
     let method:HTTPMethod
     var contentType:MIMEType?
-    let data:AlgoEntity
+    let data:AlgoEntity?
     var httpRequest:URLRequest?
     var session:URLSession
-    var dataTask:URLSessionDataTask?
+    var dataTask:URLSessionTask?
     var headers:[HTTPHeader]
     
-    init(path:String, session:URLSession, method:HTTPMethod, data:AlgoEntity) {
+    init(path:String, session:URLSession, method:HTTPMethod, data:AlgoEntity?) {
         self.path = path
         self.method = method
         self.data = data
         self.session = session
         let agentHeader = HTTPHeader.UserAgent(String(format:"algorithmia-swift/%@ (Swift %@)",Algo.CLIENT_VERSION,Algo.SWIFT_VERSION))
         self.headers = [agentHeader]
-        //self.httpRequest = URLRequest(url: URL(string: "http://localhost:3000")!)
     }
     
     func setHeader(value:String, key:String) {
         headers.append(HTTPHeader.Custom(key, value))
     }
     
-    func send(completion:@escaping AlgoCompletionHandler) {
+    func execute(completion:@escaping AlgoCompletionHandler) {
         let url = URL(string: path, relativeTo: AlgoAPIClient.baseURL())
         var httpRequest = URLRequest(url: url!)
         httpRequest.httpMethod = method.rawValue
         
         // HTTP headers
+        if let dataHeaders = data?.headers() {
+            headers.append(contentsOf: dataHeaders)
+        }
         
-        for header in data.headers() + headers {
+        for header in headers {
             httpRequest.addValue(header.requestHeaderValue, forHTTPHeaderField: header.key)
         }
         
         // HTTP Body
-        httpRequest.httpBody = data.body()
-        
+        httpRequest.httpBody = data?.body()
         // Send HTTP Request
-        dataTask = session.dataTask(with: httpRequest) { (respData, resp, error) in
+        dataTask = session.dataTask(with: httpRequest) { (respData, response, error) in
+            var code = 0
+            if let httpResponse = response as? HTTPURLResponse {
+                code = httpResponse.statusCode
+            }
             if (respData == nil) {
-                completion(AlgoResponse(),error)
+                completion(AlgoResponse(code: code),error)
             }
             else {
-                let response = AlgoResponse()
+                let response = AlgoResponse(code: code)
                 if (error != nil) {
                     completion(response, error)
                 }
@@ -124,4 +130,57 @@ class AlgoRequest {
         dataTask?.resume()
     }
     
+    func send(completion:@escaping AlgoDataCompletionHandler) {
+        let url = URL(string: path, relativeTo: AlgoAPIClient.baseURL())
+        var httpRequest = URLRequest(url: url!)
+        httpRequest.httpMethod = method.rawValue
+        // HTTP headers
+        if let dataHeaders = data?.headers() {
+            headers.append(contentsOf: dataHeaders)
+        }
+        
+        for header in headers {
+            httpRequest.addValue(header.requestHeaderValue, forHTTPHeaderField: header.key)
+        }
+        
+        // HTTP Body
+        httpRequest.httpBody = data?.body()
+        // Send HTTP Request
+        dataTask = session.dataTask(with: httpRequest) { (respData, response, error) in
+            completion(AlgoResponseData(response:response,data:respData), error)
+        }
+        dataTask?.resume()
+    }
+    
+    func send(file:URL, completion:@escaping AlgoDataCompletionHandler) {
+        let url = URL(string: path, relativeTo: AlgoAPIClient.baseURL())
+        var httpRequest = URLRequest(url: url!)
+        httpRequest.httpMethod = method.rawValue
+        // HTTP headers
+        if let dataHeaders = data?.headers() {
+            headers.append(contentsOf: dataHeaders)
+        }
+        
+        for header in headers {
+            httpRequest.addValue(header.requestHeaderValue, forHTTPHeaderField: header.key)
+        }
+        
+        // Send HTTP Request
+        dataTask = session.uploadTask(with: httpRequest, fromFile: file) { (respData, response, error) in
+            completion(AlgoResponseData(response:response,data:respData), error)
+        }
+        
+        dataTask?.resume()
+    }
+    
+    func download(completion:@escaping AlgoDownloadCompletionHandler) {
+        let url = URL(string: path, relativeTo: AlgoAPIClient.baseURL())
+        var httpRequest = URLRequest(url: url!)
+        httpRequest.httpMethod = method.rawValue
+        dataTask = session.downloadTask(with: httpRequest, completionHandler: { (location, urlResponse, error) in
+            completion(location, error)
+        })
+        
+    }
+
 }

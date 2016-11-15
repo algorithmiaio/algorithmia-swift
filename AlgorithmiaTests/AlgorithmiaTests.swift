@@ -132,4 +132,62 @@ class AlgorithmiaTests: XCTestCase {
         }
     }
     
+    func testFilePut() {
+        let expect = expectation(description: "Test put File")
+        let file = client?.file("data://.my/test/test.txt")
+        file?.put(string: "test text", completion: { (error) in
+            if let error=error {
+                XCTFail("Algorithmia File put Test error: \(error)")
+            } else {
+                expect.fulfill()
+            }
+        })
+        
+        waitForExpectations(timeout: 10.0) { error in
+            if let error = error {
+                XCTFail("WaitForExectationsWithTimeout error: \(error)")
+            }
+        }
+    }
+    
+    func testFileExits() {
+        let expect = expectation(description: "Test File exist")
+        let file = client?.file("data://.my/test/test.txt")
+        file?.exists(completion: { (isExist, error) in
+            if error != nil {
+                XCTFail("Algorithmia File Exist function Error: \(error)")
+            }
+            else {
+                if isExist {
+                    print("File exists")
+                }
+            }
+            expect.fulfill()
+        })
+        waitForExpectations(timeout: 10.0) { error in
+            if let error = error {
+                XCTFail("WaitForExectationsWithTimeout error: \(error)")
+            }
+        }
+    }
+    
+    func testFileGet() {
+        let expect = expectation(description: "Test File getString")
+        let file = client?.file("data://.my/test/test.txt")
+        file?.getString(completion: { (text, error) in
+            if let _ = text {
+                print("File content:",text)
+                expect.fulfill()
+            }
+            else {
+                XCTFail("Algorithmia File Not found: \(error)")
+            }
+        })
+        
+        waitForExpectations(timeout: 10.0) { error in
+            if let error = error {
+                XCTFail("WaitForExectationsWithTimeout error: \(error)")
+            }
+        }
+    }
 }

@@ -14,7 +14,7 @@ class AlgorithmRef {
         self.algoUri = algoUri.replacingOccurrences(of: "^algo://|^/", with: "", options: .regularExpression)
     }
     func getPath() -> String {
-        return algoUri
+        return "v1/algo/" + algoUri
     }
     
     func toString() -> String {
