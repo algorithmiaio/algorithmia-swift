@@ -31,4 +31,7 @@ class AlgorithmiaClient {
         return AlgoDataFile(client: apiClient, dataUrl: path)
     }
     
+    func dir(_ path:String) -> AlgoDataDirectory {
+        return AlgoDataDirectory(client: apiClient, dataUrl: path)
+    }
 }
