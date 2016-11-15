@@ -188,7 +188,7 @@ class AlgorithmiaTests: XCTestCase {
         }
     }
     
-    func testDirectoryGet() {
+    func testDirectoryListing() {
         let expect = expectation(description: "Test Directory listing")
         let dir = client?.dir("data://.my/test/")
         var count = 0;
@@ -204,6 +204,44 @@ class AlgorithmiaTests: XCTestCase {
                  else if(count == 1) {
                     expect.fulfill()
                 }
+        })
+        waitForExpectations(timeout: 10.0) { error in
+            if let error = error {
+                XCTFail("WaitForExectationsWithTimeout error: \(error)")
+            }
+        }
+    }
+    
+    func testDirectoryCreate() {
+        let expect = expectation(description: "Test Directory Create")
+        let dir = client?.dir("data://.my/one")
+        dir?.create { error in
+            if error != nil {
+                XCTFail("Algorithmia Create File Error: \(error)")
+                
+            }
+            expect.fulfill()
+        }
+        waitForExpectations(timeout: 10.0) { error in
+            if let error = error {
+                XCTFail("WaitForExectationsWithTimeout error: \(error)")
+            }
+        }
+
+    }
+    
+    func testDirectoryDelete() {
+        let expect = expectation(description: "Test Directory Delete")
+        let dir = client?.dir("data://.my/test/one")
+        dir?.delete(force: false, completion: { (result, error) in
+            if error != nil {
+                XCTFail("Algorithmia Delete File Error: \(error)")
+                expect.fulfill()
+            }
+            else {
+                print(result?.deletedCount)
+                expect.fulfill()
+            }
         })
         waitForExpectations(timeout: 10.0) { error in
             if let error = error {

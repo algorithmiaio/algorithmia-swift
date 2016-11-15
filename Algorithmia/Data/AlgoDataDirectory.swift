@@ -10,9 +10,76 @@ import Foundation
 
 typealias AlgoDataListingHandler = ( AlgoDataObject?) -> Void
 
-class AlgoDirectory:AlgoDataObject {
+class AlgoDataDirectory:AlgoDataObject {
+    
     init(client: AlgoAPIClient, dataUrl: String) {
-        super.init(client: client, dataUrl: dataUrl, type: .Directory)
+        var dirUrl = dataUrl
+        if dataUrl.hasSuffix("/") {
+            dirUrl = dataUrl.substring(to: dataUrl.index(before: dataUrl.endIndex))
+        }
+        super.init(client: client, dataUrl: dirUrl, type: .Directory)
+    }
+    
+    func create(_ completion:@escaping AlgoSimpleCompletionHandler) {
+        let entity = try! AlgoJSONEntity(entity: ["name":self.basename()])
+        _ = client.send(method: .POST, path: self.parent()!.getUrl(), data: entity) { (respData, error) in
+            if respData.statusCode == 200 {
+                completion(nil)
+            }
+            else if error == nil {
+                var message:String = "Can not create directory"
+                if let json = try? respData.getJSON() {
+                    if let errorDict = json?["error"] as? [String:String] {
+                        if let str = errorDict["message"] {
+                            message = str
+                        }
+                    }
+                }
+                completion(AlgoError.DataError(message))
+            }
+            else {
+                completion(error)
+            }
+        }
+    }
+    
+    func delete(force:Bool, completion:@escaping (DeletedResult?, Error?) -> Void ) {
+        _ = client.send(method: .DELETE, path: self.getUrl(), data: nil, options:["force":String(force)]) { (respData, error) in
+            var jsonData:[String:Any]?
+            
+            do {
+                try jsonData = respData.getJSON()
+            } catch {
+            }
+            
+            if let json = jsonData {
+                completion(DeletedResult(json), error)
+            }
+            else {
+                completion(nil,error)
+            }
+        }
+    }
+    
+    func file(name:String) -> AlgoDataFile {
+        return AlgoDataFile(client: self.client, dataUrl: self.path + "/" + name)
+    }
+    
+    func dir(name:String) -> AlgoDataDirectory {
+        return AlgoDataDirectory(client: self.client, dataUrl: self.path + "/" + name)
+    }
+    
+    func put(file:URL, completion:@escaping (AlgoDataFile?, Error?) -> Void) {
+        let filename = file.lastPathComponent
+        let dataFile = self.file(name: filename)
+        dataFile.put(file: file) { (error) in
+            if let _ = error {
+                completion(nil, error)
+            }
+            else {
+                completion(dataFile, nil)
+            }
+        }
     }
     
     func forEach(_ object:@escaping AlgoDataListingHandler, completion:@escaping AlgoSimpleCompletionHandler) -> AlgoDataListing {
@@ -23,12 +90,12 @@ class AlgoDirectory:AlgoDataObject {
         return listing
     }
     
-    func forEach(dir:@escaping (AlgoDirectory?) -> Void, completion:@escaping AlgoSimpleCompletionHandler) -> AlgoDataListing {
+    func forEach(dir:@escaping (AlgoDataDirectory?) -> Void, completion:@escaping AlgoSimpleCompletionHandler) -> AlgoDataListing {
         let listing = AlgoDataListing(client: client, path: getUrl())
         listing.incFile = false
         listing.incDir = true
         listing.forEach(handler: { (dataObject) in
-            dir(dataObject as? AlgoDirectory)
+            dir(dataObject as? AlgoDataDirectory)
             }, completion: completion)
         return listing
     }
@@ -85,7 +152,7 @@ class AlgoDataListing {
                         if let fileArray = self.page?["files"] as? [Any] {
                             for obj in fileArray {
                                 if let file = obj as? [String:Any] {
-                                    let path = self.path + (file["filename"] as! String)
+                                    let path = self.path + "/" + (file["filename"] as! String)
                                     let dataFile = AlgoDataFile(client: self.client, dataUrl: path)
                                     self.handler?(dataFile)
                                 }
@@ -97,8 +164,8 @@ class AlgoDataListing {
                         if let dirArray = self.page?["files"] as? [Any] {
                             for obj in dirArray {
                                 if let dir = obj as? [String:Any] {
-                                    let path = self.path + (dir["filename"] as! String)
-                                    let dataDir = AlgoDirectory(client: self.client, dataUrl: path)
+                                    let path = self.path + "/" + (dir["filename"] as! String)
+                                    let dataDir = AlgoDataDirectory(client: self.client, dataUrl: path)
                                     self.handler?(dataDir)
                                 }
                             }
