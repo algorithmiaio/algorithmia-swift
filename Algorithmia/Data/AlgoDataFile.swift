@@ -16,7 +16,14 @@ class AlgoDataFile:AlgoDataObject {
     func getString(completion:@escaping (String?, Error?) -> Void) {
         _ = client.send(method:.GET, path: getUrl(), data:nil) { (resp, error) in
             if let data = resp.rawData {
-                completion(String(data: data, encoding: .utf8), error)
+                
+                if let str = String(data: data, encoding: .utf8) {
+                    completion(str, error)
+                }
+                else {
+                    completion(nil, AlgoError.DataError("Data is not valid UTF-8"))
+                }
+                
             }
             else {
                 completion(nil, error)

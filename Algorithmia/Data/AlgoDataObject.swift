@@ -29,7 +29,10 @@ class AlgoDataObject {
     func exists(completion:@escaping (Bool,Error?)-> Void) {
         _ = client.send(method:.HEAD, path: getUrl(), data:nil) { (resp, error) in
             if resp.statusCode == 200 {
-                completion(true, error)
+                completion(true, nil)
+            }
+            else if resp.statusCode == 404 {
+                completion(false, nil)
             }
             else {
                 completion(false, error)

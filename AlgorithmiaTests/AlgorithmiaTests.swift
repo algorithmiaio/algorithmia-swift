@@ -154,12 +154,15 @@ class AlgorithmiaTests: XCTestCase {
         let expect = expectation(description: "Test File exist")
         let file = client?.file("data://.my/test/test.txt")
         file?.exists(completion: { (isExist, error) in
-            if isExist {
-                expect.fulfill()
+            if error != nil {
+                XCTFail("Algorithmia File Exist function Error: \(error)")
             }
             else {
-                XCTFail("Algorithmia File Not found: \(error)")
+                if isExist {
+                    print("File exists")
+                }
             }
+            expect.fulfill()
         })
         waitForExpectations(timeout: 10.0) { error in
             if let error = error {
