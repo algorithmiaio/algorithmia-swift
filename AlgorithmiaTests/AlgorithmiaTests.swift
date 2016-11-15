@@ -187,4 +187,28 @@ class AlgorithmiaTests: XCTestCase {
             }
         }
     }
+    
+    func testDirectoryGet() {
+        let expect = expectation(description: "Test Directory listing")
+        let dir = client?.dir("data://.my/test/")
+        var count = 0;
+        _ = dir?.forEach(file: { (file) in
+                print(file?.path)
+                count = count + 1;
+
+            }, completion: { (error) in
+                if let error = error {
+                    XCTFail("Algorithmia Listing Error: \(error)")
+                    expect.fulfill()
+                }
+                 else if(count == 1) {
+                    expect.fulfill()
+                }
+        })
+        waitForExpectations(timeout: 10.0) { error in
+            if let error = error {
+                XCTFail("WaitForExectationsWithTimeout error: \(error)")
+            }
+        }
+    }
 }

@@ -38,6 +38,7 @@
 		033A26FF1DD3228D00F111FC /* AlgorithmiaSimpleAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033A26E51DD320B800F111FC /* AlgorithmiaSimpleAuth.swift */; };
 		033A270A1DD4DCDA00F111FC /* AlgoDataObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033A27091DD4DCDA00F111FC /* AlgoDataObject.swift */; };
 		033A270C1DD4DE5000F111FC /* AlgoDataFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033A270B1DD4DE5000F111FC /* AlgoDataFile.swift */; };
+		039F82AC1DDA44A800F804C3 /* AlgoDataDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A6AD9D1DD64454004540E5 /* AlgoDataDirectory.swift */; };
 		03A6AD9E1DD64454004540E5 /* AlgoDataDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A6AD9D1DD64454004540E5 /* AlgoDataDirectory.swift */; };
 		03A6ADA01DD65227004540E5 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A6AD9F1DD65227004540E5 /* Helpers.swift */; };
 		03DC30CF1DD9F22300598A51 /* AlgoResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DC30CE1DD9F22300598A51 /* AlgoResponseData.swift */; };
@@ -339,6 +340,7 @@
 				033A26FE1DD3228D00F111FC /* AlgorithmiaAuth.swift in Sources */,
 				03E397CB1DDA0C8900FB907D /* AlgoDataFile.swift in Sources */,
 				03E397CC1DDA0C8D00FB907D /* AlgoDataObject.swift in Sources */,
+				039F82AC1DDA44A800F804C3 /* AlgoDataDirectory.swift in Sources */,
 				03A6ADA01DD65227004540E5 /* Helpers.swift in Sources */,
 				033A26FF1DD3228D00F111FC /* AlgorithmiaSimpleAuth.swift in Sources */,
 			);

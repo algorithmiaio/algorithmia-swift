@@ -147,7 +147,7 @@ class AlgoRequest {
         httpRequest.httpBody = data?.body()
         // Send HTTP Request
         dataTask = session.dataTask(with: httpRequest) { (respData, response, error) in
-            completion(AlgoResponseData(response:response,data:respData), error)
+            completion(AlgoResponseData(response:response, data:respData), error)
         }
         dataTask?.resume()
     }
