@@ -21,19 +21,44 @@ class AlgoDataDirectory:AlgoDataObject {
     }
     
     func create(_ completion:@escaping AlgoSimpleCompletionHandler) {
-        let entity = try! AlgoJSONEntity(entity: ["name":self.basename()])
+        self.create(readACL: nil, completion: completion)
+    }
+    
+    func create(readACL:DataACL? , completion:@escaping AlgoSimpleCompletionHandler) {
+        
+        var param:[String:Any] = ["name":self.basename()]
+        if let readACL = readACL {
+            param["acl"] = ["read":readACL.value]
+        }
+        
+        let entity = try! AlgoJSONEntity(entity: param)
         _ = client.send(method: .POST, path: self.parent()!.getUrl(), data: entity) { (respData, error) in
             if respData.statusCode == 200 {
                 completion(nil)
             }
             else if error == nil {
                 var message:String = "Can not create directory"
-                if let json = try? respData.getJSON() {
-                    if let errorDict = json?["error"] as? [String:String] {
-                        if let str = errorDict["message"] {
-                            message = str
-                        }
-                    }
+                if let str = respData.errorMessage() {
+                    message = str
+                }
+                completion(AlgoError.DataError(message))
+            }
+            else {
+                completion(error)
+            }
+        }
+    }
+    
+    func update(readACL:DataACL , completion:@escaping AlgoSimpleCompletionHandler) {
+        let entity = try! AlgoJSONEntity(entity: ["acl":["read":readACL.value]])
+        _ = client.send(method: .PATCH, path: self.getUrl(), data: entity) { (respData, error) in
+            if respData.statusCode == 200 {
+                completion(nil)
+            }
+            else if error == nil {
+                var message:String = "Can not update directory"
+                if let str = respData.errorMessage() {
+                    message = str
                 }
                 completion(AlgoError.DataError(message))
             }

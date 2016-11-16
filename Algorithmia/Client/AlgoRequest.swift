@@ -16,6 +16,7 @@ class AlgoRequest {
         case PUT    = "PUT"
         case DELETE = "DELETE"
         case HEAD   = "HEAD"
+        case PATCH  = "PATCH"
     }
     
     public enum MIMEType: String {

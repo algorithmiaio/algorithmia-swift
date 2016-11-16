@@ -14,6 +14,21 @@ class AlgoDataObject {
         case Directory
     }
     
+    enum DataACL {
+        case PUBLIC
+        case MY_ALGORITHMS
+        case PRIVATE
+        var value:[String] {
+            switch self {
+            case .PUBLIC:
+                return ["user://*"]
+            case .MY_ALGORITHMS:
+                return ["algo://.my/*"]
+            default:
+                return []
+            }
+        }
+    }
     
     let path:String
     

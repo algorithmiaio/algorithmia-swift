@@ -220,7 +220,7 @@ class AlgorithmiaTests: XCTestCase {
         let dir = client?.dir("data://.my/one")
         dir?.create { error in
             if error != nil {
-                XCTFail("Algorithmia Create File Error: \(error)")
+                XCTFail("Algorithmia Create folder error: \(error)")
                 
             }
             expect.fulfill()
@@ -231,6 +231,24 @@ class AlgorithmiaTests: XCTestCase {
             }
         }
 
+    }
+    
+    func testDirectoryUpdate() {
+        let expect = expectation(description: "Test Directory Create")
+        let dir = client?.dir("data://.my/one")
+        dir?.update(readACL:.PUBLIC) { error in
+            if error != nil {
+                XCTFail("Algorithmia Update folder error: \(error)")
+                
+            }
+            expect.fulfill()
+        }
+        waitForExpectations(timeout: 10.0) { error in
+            if let error = error {
+                XCTFail("WaitForExectationsWithTimeout error: \(error)")
+            }
+        }
+        
     }
     
     func testDirectoryDelete() {
