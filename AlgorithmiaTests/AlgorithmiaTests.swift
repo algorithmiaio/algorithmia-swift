@@ -190,4 +190,84 @@ class AlgorithmiaTests: XCTestCase {
             }
         }
     }
+    
+    func testDirectoryListing() {
+        let expect = expectation(description: "Test Directory listing")
+        let dir = client?.dir("data://.my/test/")
+        var count = 0;
+        _ = dir?.forEach(file: { (file) in
+                print(file?.path)
+                count = count + 1;
+
+            }, completion: { (error) in
+                if let error = error {
+                    XCTFail("Algorithmia Listing Error: \(error)")
+                    expect.fulfill()
+                }
+                 else if(count == 1) {
+                    expect.fulfill()
+                }
+        })
+        waitForExpectations(timeout: 10.0) { error in
+            if let error = error {
+                XCTFail("WaitForExectationsWithTimeout error: \(error)")
+            }
+        }
+    }
+    
+    func testDirectoryCreate() {
+        let expect = expectation(description: "Test Directory Create")
+        let dir = client?.dir("data://.my/one")
+        dir?.create { error in
+            if error != nil {
+                XCTFail("Algorithmia Create folder error: \(error)")
+                
+            }
+            expect.fulfill()
+        }
+        waitForExpectations(timeout: 10.0) { error in
+            if let error = error {
+                XCTFail("WaitForExectationsWithTimeout error: \(error)")
+            }
+        }
+
+    }
+    
+    func testDirectoryUpdate() {
+        let expect = expectation(description: "Test Directory Create")
+        let dir = client?.dir("data://.my/one")
+        dir?.update(readACL:.PUBLIC) { error in
+            if error != nil {
+                XCTFail("Algorithmia Update folder error: \(error)")
+                
+            }
+            expect.fulfill()
+        }
+        waitForExpectations(timeout: 10.0) { error in
+            if let error = error {
+                XCTFail("WaitForExectationsWithTimeout error: \(error)")
+            }
+        }
+        
+    }
+    
+    func testDirectoryDelete() {
+        let expect = expectation(description: "Test Directory Delete")
+        let dir = client?.dir("data://.my/test/one")
+        dir?.delete(force: false, completion: { (result, error) in
+            if error != nil {
+                XCTFail("Algorithmia Delete File Error: \(error)")
+                expect.fulfill()
+            }
+            else {
+                print(result?.deletedCount)
+                expect.fulfill()
+            }
+        })
+        waitForExpectations(timeout: 10.0) { error in
+            if let error = error {
+                XCTFail("WaitForExectationsWithTimeout error: \(error)")
+            }
+        }
+    }
 }

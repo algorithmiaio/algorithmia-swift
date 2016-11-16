@@ -27,4 +27,15 @@ class AlgoResponseData {
         let jsonData = try JSONSerialization.jsonObject(with: rawData!, options: JSONSerialization.ReadingOptions.allowFragments) as? [String: Any]
         return jsonData
     }
+    
+    func errorMessage() -> String? {
+        if let json = try? getJSON() {
+            if let error = json?["error"] as? [String:Any] {
+                if let message = error["message"] as? String {
+                    return message
+                }
+            }
+        }
+        return nil
+    }
 }

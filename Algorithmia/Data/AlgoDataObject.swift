@@ -14,6 +14,21 @@ class AlgoDataObject {
         case Directory
     }
     
+    enum DataACL {
+        case PUBLIC
+        case MY_ALGORITHMS
+        case PRIVATE
+        var value:[String] {
+            switch self {
+            case .PUBLIC:
+                return ["user://*"]
+            case .MY_ALGORITHMS:
+                return ["algo://.my/*"]
+            default:
+                return []
+            }
+        }
+    }
     
     let path:String
     
@@ -45,9 +60,39 @@ class AlgoDataObject {
         return "v1/data/" + self.path.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
     }
     
-    struct DeletedResult {
-        let isSuccess:Bool
-        let count:Int
+    func parent() -> AlgoDataDirectory? {
+        if let range = self.path.range(of: "/", options: .backwards) {
+            return AlgoDataDirectory(client:client, dataUrl:self.path.substring(to: range.upperBound))
+        }
+        else {
+            return nil
+        }
+    }
+    
+    func basename() -> String {
+        let range = self.path.range(of: "/", options: .backwards)!
+        return self.path.substring(from: range.upperBound)
+    }
+    
+    class DeletedResult {
+        var isSuccess:Bool
+        var deletedCount:Int
+        init(_ json:[String:Any]) {
+            isSuccess = false
+            deletedCount = 0
+            if let result = json["result"] as? [String:Int] {
+                isSuccess = true
+                if let deleted = result["deleted"] {
+                    deletedCount = deleted
+                }
+            }
+            if let result = json["error"] as? [String:Any] {
+                isSuccess = false
+                if let deleted = result["deleted"] as? Int {
+                    deletedCount = deleted
+                }
+            }
+        }
     }
 }
 

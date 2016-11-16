@@ -12,6 +12,7 @@ import Foundation
 typealias AlgoCompletionHandler = (AlgoResponse,Error?)-> Void
 typealias AlgoDataCompletionHandler = (AlgoResponseData,Error?)-> Void
 typealias AlgoDownloadCompletionHandler = (URL?,Error?)-> Void
+typealias AlgoSimpleCompletionHandler = (Error?)-> Void
 /**
  * A minimal API client
  */
@@ -56,6 +57,20 @@ class AlgoAPIClient {
     func send(method:AlgoRequest.HTTPMethod, path:String, data:AlgoEntity?, completion:@escaping AlgoDataCompletionHandler) -> AlgoRequest {
 
         let request = AlgoRequest(path: path, session: session, method: method, data: data)
+        self.auth?.authenticate(request: request)
+        
+        request.send(completion: completion)
+        return request;
+        
+    }
+    
+    func send(method:AlgoRequest.HTTPMethod, path:String, data:AlgoEntity?, options:[String:String], completion:@escaping AlgoDataCompletionHandler) -> AlgoRequest {
+        
+        var queryPath = path
+        if options.count>0 {
+            queryPath = addQuery(path: path, parameters: options)
+        }
+        let request = AlgoRequest(path: queryPath, session: session, method: method, data: data)
         self.auth?.authenticate(request: request)
         
         request.send(completion: completion)

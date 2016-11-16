@@ -16,6 +16,7 @@ class AlgoRequest {
         case PUT    = "PUT"
         case DELETE = "DELETE"
         case HEAD   = "HEAD"
+        case PATCH  = "PATCH"
     }
     
     public enum MIMEType: String {
@@ -147,7 +148,7 @@ class AlgoRequest {
         httpRequest.httpBody = data?.body()
         // Send HTTP Request
         dataTask = session.dataTask(with: httpRequest) { (respData, response, error) in
-            completion(AlgoResponseData(response:response,data:respData), error)
+            completion(AlgoResponseData(response:response, data:respData), error)
         }
         dataTask?.resume()
     }
