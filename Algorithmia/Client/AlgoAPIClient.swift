@@ -10,7 +10,7 @@ import Foundation
 
 
 typealias AlgoCompletionHandler = (AlgoResponse,Error?)-> Void
-typealias AlgoDataCompletionHandler = (AlgoResponseData,Error?)-> Void
+typealias AlgoDataCompletionHandler = (AlgoResponseData)-> Void
 typealias AlgoDownloadCompletionHandler = (URL?,Error?)-> Void
 typealias AlgoSimpleCompletionHandler = (Error?)-> Void
 /**
@@ -20,7 +20,6 @@ class AlgoAPIClient {
     
     
     var auth:AlgorithmiaAuth? = nil
-    static let apiBaseURL=URL(string: "https://api.algorithmia.com/")!
     
     var session:URLSession
     
@@ -38,7 +37,7 @@ class AlgoAPIClient {
     }
     
     public static func baseURL() -> URL {
-        return apiBaseURL
+        return Algo.apiBaseURL
     }
     
     func execute(path:String, data:AlgoEntity, options:[String:String], completion:@escaping AlgoCompletionHandler) -> AlgoRequest {

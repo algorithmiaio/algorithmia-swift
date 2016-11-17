@@ -11,14 +11,14 @@ import Foundation
 enum AlgoError : Error {
     case UnknownError
     case DataError(String)
-    case ProcessError(String)
+    case ProcessError(Int, String)
     
     var localizedDescription: String {
         switch self {
         case .DataError(let message):
             return message
-        case .ProcessError(let message):
-            return message
+        case .ProcessError(let code, let message):
+            return String(code)+" "+message
         case .UnknownError:
             return "Unknown Error"
         }

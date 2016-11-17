@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Base object to file and directory
 class AlgoDataObject {
     enum DataObjectType {
         case File
@@ -41,8 +42,12 @@ class AlgoDataObject {
         self.dataType = type
     }
     
+    
+    /// Check if file exists
+    ///
+    /// - parameter completion: completion handler
     func exists(completion:@escaping (Bool,Error?)-> Void) {
-        _ = client.send(method:.HEAD, path: getUrl(), data:nil) { (resp, error) in
+        _ = client.send(method:.HEAD, path: getUrl(), data:nil) { resp in
             if resp.statusCode == 200 {
                 completion(true, nil)
             }
@@ -50,7 +55,7 @@ class AlgoDataObject {
                 completion(false, nil)
             }
             else {
-                completion(false, error)
+                completion(false, resp.error)
             }
         }
     }
@@ -60,6 +65,10 @@ class AlgoDataObject {
         return "v1/data/" + self.path.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
     }
     
+    
+    /// Return parent directory object. It return nil if this is root directory
+    ///
+    /// - returns: Directory object
     func parent() -> AlgoDataDirectory? {
         if let range = self.path.range(of: "/", options: .backwards) {
             return AlgoDataDirectory(client:client, dataUrl:self.path.substring(to: range.upperBound))
@@ -69,6 +78,10 @@ class AlgoDataObject {
         }
     }
     
+    
+    /// Return name of File/Directory object
+    ///
+    /// - returns: name of file/directory
     func basename() -> String {
         let range = self.path.range(of: "/", options: .backwards)!
         return self.path.substring(from: range.upperBound)

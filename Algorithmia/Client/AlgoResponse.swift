@@ -18,6 +18,7 @@ class AlgoResponse {
         case BINARY
     }
     
+    /// Metadata
     struct Metadata {
         let duration:Float
         let contentType:ContentType?
@@ -63,7 +64,7 @@ class AlgoResponse {
             
             if let message = errorInfo["message"] as? String {
                 self.error = ErrorData(message: message, stacktrace: stacktrace)
-                throw AlgoError.ProcessError(message)
+                throw AlgoError.ProcessError(statusCode, message)
             }
         }
         
