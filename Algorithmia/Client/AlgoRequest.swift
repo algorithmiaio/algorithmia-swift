@@ -148,7 +148,7 @@ class AlgoRequest {
         httpRequest.httpBody = data?.body()
         // Send HTTP Request
         dataTask = session.dataTask(with: httpRequest) { (respData, response, error) in
-            completion(AlgoResponseData(response:response, data:respData), error)
+            completion(AlgoResponseData(response:response, data:respData, error:error))
         }
         dataTask?.resume()
     }
@@ -168,7 +168,7 @@ class AlgoRequest {
         
         // Send HTTP Request
         dataTask = session.uploadTask(with: httpRequest, fromFile: file) { (respData, response, error) in
-            completion(AlgoResponseData(response:response,data:respData), error)
+            completion(AlgoResponseData(response:response, data:respData, error: error))
         }
         
         dataTask?.resume()
@@ -177,11 +177,14 @@ class AlgoRequest {
     func download(completion:@escaping AlgoDownloadCompletionHandler) {
         let url = URL(string: path, relativeTo: AlgoAPIClient.baseURL())
         var httpRequest = URLRequest(url: url!)
+        for header in headers {
+            httpRequest.addValue(header.requestHeaderValue, forHTTPHeaderField: header.key)
+        }
         httpRequest.httpMethod = method.rawValue
         dataTask = session.downloadTask(with: httpRequest, completionHandler: { (location, urlResponse, error) in
             completion(location, error)
         })
-        
+        dataTask?.resume()
     }
 
 }
