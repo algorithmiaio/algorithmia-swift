@@ -31,7 +31,7 @@ class AlgoDataObject {
         }
     }
     
-    let path:String
+    open let path:String
     
     let client:AlgoAPIClient
     let dataType:DataObjectType
@@ -87,6 +87,14 @@ class AlgoDataObject {
         return self.path.substring(from: range.upperBound)
     }
     
+    
+    /// Return full path of File/Directory. e.g., data://.my/foo/bar.txt
+    ///
+    /// - returns: full path of File/Directory
+    func fullPath() -> String {
+        return "data://"+self.path
+    }
+    
     class DeletedResult {
         var isSuccess:Bool
         var deletedCount:Int
@@ -107,5 +115,7 @@ class AlgoDataObject {
             }
         }
     }
+    
+    
 }
 
