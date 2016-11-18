@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		033A266F1DD2632A00F111FC /* AlgoOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033A266E1DD2632A00F111FC /* AlgoOption.swift */; };
+		03533D601DDE29CB009A07E0 /* AlgoDataDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03533D5D1DDE29CB009A07E0 /* AlgoDataDirectory.swift */; };
+		03533D611DDE29CB009A07E0 /* AlgoDataFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03533D5E1DDE29CB009A07E0 /* AlgoDataFile.swift */; };
+		03533D621DDE29CB009A07E0 /* AlgoDataObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03533D5F1DDE29CB009A07E0 /* AlgoDataObject.swift */; };
+		03533D641DDE2DF6009A07E0 /* AlgoResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03533D631DDE2DF6009A07E0 /* AlgoResponseData.swift */; };
 		036C93571DCA5D9E00E2EE97 /* AlgorithmiaConf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036C93561DCA5D9E00E2EE97 /* AlgorithmiaConf.swift */; };
 		036C93591DCAC5E600E2EE97 /* AlgoError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036C93581DCAC5E600E2EE97 /* AlgoError.swift */; };
 		036FDA801DC8906800E91C9F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036FDA7F1DC8906800E91C9F /* AppDelegate.swift */; };
@@ -49,6 +53,10 @@
 
 /* Begin PBXFileReference section */
 		033A266E1DD2632A00F111FC /* AlgoOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlgoOption.swift; sourceTree = "<group>"; };
+		03533D5D1DDE29CB009A07E0 /* AlgoDataDirectory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlgoDataDirectory.swift; sourceTree = "<group>"; };
+		03533D5E1DDE29CB009A07E0 /* AlgoDataFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlgoDataFile.swift; sourceTree = "<group>"; };
+		03533D5F1DDE29CB009A07E0 /* AlgoDataObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlgoDataObject.swift; sourceTree = "<group>"; };
+		03533D631DDE2DF6009A07E0 /* AlgoResponseData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlgoResponseData.swift; sourceTree = "<group>"; };
 		036C93561DCA5D9E00E2EE97 /* AlgorithmiaConf.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlgorithmiaConf.swift; sourceTree = "<group>"; };
 		036C93581DCAC5E600E2EE97 /* AlgoError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlgoError.swift; sourceTree = "<group>"; };
 		036FDA7C1DC8906800E91C9F /* AlgorithmiaSwiftDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AlgorithmiaSwiftDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -102,6 +110,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		03533D5C1DDE29CB009A07E0 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				03533D5D1DDE29CB009A07E0 /* AlgoDataDirectory.swift */,
+				03533D5E1DDE29CB009A07E0 /* AlgoDataFile.swift */,
+				03533D5F1DDE29CB009A07E0 /* AlgoDataObject.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		036FDA731DC8906800E91C9F = {
 			isa = PBXGroup;
 			children = (
@@ -160,6 +178,7 @@
 			children = (
 				036FDAC71DC8DF8900E91C9F /* Algorithm */,
 				036FDAB71DC8BBBD00E91C9F /* Client */,
+				03533D5C1DDE29CB009A07E0 /* Data */,
 				036FDAAE1DC8931100E91C9F /* AlgorithmiaClient.swift */,
 				036FDAB01DC8940600E91C9F /* Algorithmia.swift */,
 				036C93561DCA5D9E00E2EE97 /* AlgorithmiaConf.swift */,
@@ -176,6 +195,7 @@
 				036FDABF1DC8C18F00E91C9F /* AlgoEntity.swift */,
 				036FDAC11DC8CD4400E91C9F /* AlgoRequest.swift */,
 				036FDACE1DC8EA1500E91C9F /* AlgoResponse.swift */,
+				03533D631DDE2DF6009A07E0 /* AlgoResponseData.swift */,
 			);
 			path = Client;
 			sourceTree = "<group>";
@@ -344,18 +364,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				036FDA821DC8906800E91C9F /* ViewController.swift in Sources */,
+				03533D611DDE29CB009A07E0 /* AlgoDataFile.swift in Sources */,
 				036FDACD1DC8E1E000E91C9F /* AlgorithmRef.swift in Sources */,
 				036FDABE1DC8BC9200E91C9F /* AlgoAPIClient.swift in Sources */,
 				036FDAB11DC8940600E91C9F /* Algorithmia.swift in Sources */,
+				03533D601DDE29CB009A07E0 /* AlgoDataDirectory.swift in Sources */,
 				036FDA801DC8906800E91C9F /* AppDelegate.swift in Sources */,
 				036C93571DCA5D9E00E2EE97 /* AlgorithmiaConf.swift in Sources */,
 				036FDABC1DC8BBD900E91C9F /* AlgorithmiaSimpleAuth.swift in Sources */,
 				036FDABB1DC8BBD900E91C9F /* AlgorithmiaAuth.swift in Sources */,
 				036FDAC01DC8C18F00E91C9F /* AlgoEntity.swift in Sources */,
 				036FDAC91DC8DF8900E91C9F /* Algorithm.swift in Sources */,
+				03533D641DDE2DF6009A07E0 /* AlgoResponseData.swift in Sources */,
 				036FDAAF1DC8931100E91C9F /* AlgorithmiaClient.swift in Sources */,
 				036FDAC21DC8CD4400E91C9F /* AlgoRequest.swift in Sources */,
 				036FDACF1DC8EA1500E91C9F /* AlgoResponse.swift in Sources */,
+				03533D621DDE29CB009A07E0 /* AlgoDataObject.swift in Sources */,
 				033A266F1DD2632A00F111FC /* AlgoOption.swift in Sources */,
 				036C93591DCAC5E600E2EE97 /* AlgoError.swift in Sources */,
 			);

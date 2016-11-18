@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -18,15 +19,55 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tPI-M4-NdD">
-                                <frame key="frameInset" minX="67" minY="153" width="241" height="225"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tPI-M4-NdD"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yqJ-fX-q9n">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="OgS-HX-7KO"/>
+                                </constraints>
+                                <state key="normal" title="Take a photo"/>
+                                <connections>
+                                    <action selector="onCamera:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ohs-fP-rqd"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n9Y-Rc-dgV">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="ZMP-78-ozQ"/>
+                                </constraints>
+                                <state key="normal" title="Pick from library"/>
+                                <connections>
+                                    <action selector="onLibrary:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Jbo-Ik-Vnt"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DeepFilter" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bQB-7Q-nNl">
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="y9Z-sY-nvN"/>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="n9Y-Rc-dgV" firstAttribute="top" secondItem="y9Z-sY-nvN" secondAttribute="bottom" constant="8" id="4WN-r4-Yda"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="yqJ-fX-q9n" secondAttribute="bottom" constant="8" id="6E8-Cj-i2q"/>
+                            <constraint firstItem="y9Z-sY-nvN" firstAttribute="height" secondItem="tPI-M4-NdD" secondAttribute="height" id="GkD-r1-Idi"/>
+                            <constraint firstItem="tPI-M4-NdD" firstAttribute="top" secondItem="bQB-7Q-nNl" secondAttribute="bottom" constant="8" id="Ouc-ZZ-i8V"/>
+                            <constraint firstItem="bQB-7Q-nNl" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="WEv-6P-hTi"/>
+                            <constraint firstItem="y9Z-sY-nvN" firstAttribute="top" secondItem="tPI-M4-NdD" secondAttribute="bottom" constant="8" id="ZXn-xa-mCZ"/>
+                            <constraint firstAttribute="trailing" secondItem="y9Z-sY-nvN" secondAttribute="trailing" id="hex-nf-2zb"/>
+                            <constraint firstItem="n9Y-Rc-dgV" firstAttribute="leading" secondItem="yqJ-fX-q9n" secondAttribute="trailing" constant="8" id="l4h-uB-jYa"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="n9Y-Rc-dgV" secondAttribute="bottom" constant="8" id="m1b-Dj-Ofw"/>
+                            <constraint firstItem="yqJ-fX-q9n" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="sy5-W8-uNi"/>
+                            <constraint firstItem="y9Z-sY-nvN" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="uTc-wi-88U"/>
+                            <constraint firstItem="yqJ-fX-q9n" firstAttribute="width" secondItem="n9Y-Rc-dgV" secondAttribute="width" id="w0h-tN-mMi"/>
+                            <constraint firstItem="bQB-7Q-nNl" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="wWJ-Mh-1DL"/>
+                            <constraint firstAttribute="trailing" secondItem="tPI-M4-NdD" secondAttribute="trailing" id="xrd-eR-HEu"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="n9Y-Rc-dgV" secondAttribute="trailing" id="zgD-X2-3iK"/>
+                            <constraint firstItem="tPI-M4-NdD" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="zu5-Zd-bFI"/>
+                        </constraints>
                     </view>
                     <connections>
-                        <outlet property="imageView" destination="tPI-M4-NdD" id="xgb-2i-jvc"/>
+                        <outlet property="resultImageView" destination="y9Z-sY-nvN" id="ofd-w5-wRs"/>
+                        <outlet property="srcImageView" destination="tPI-M4-NdD" id="C75-2t-MQp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
