@@ -6,9 +6,10 @@ Note: This client was written with Swift 3.0 (Xcode 8, iOS 10)
 
 For API documentation, see the [SwiftDocs](https://algorithmia.com/docs/lang/swift)
 
-[![Build Status](https://api.shippable.com/projects/557f23a8edd7f2c052184a2d/badge/master)](https://app.shippable.com/projects/557f23a8edd7f2c052184a2d)
-
-[![Latest Release](https://img.shields.io/maven-central/v/com.algorithmia/algorithmia-client.svg)](http://repo1.maven.org/maven2/com/algorithmia/algorithmia-client/)
+[![CocoaPods](https://img.shields.io/cocoapods/v/Algorithmia-Swift.svg)]()
+[![CocoaPods](https://img.shields.io/cocoapods/l/Algorithmia-Swift.svg)]()
+[![](https://img.shields.io/badge/OS%20X-10.9%2B-lightgrey.svg)]()
+[![](https://img.shields.io/badge/iOS-10.0%2B-lightgrey.svg)]()
 
 # Getting started
 
