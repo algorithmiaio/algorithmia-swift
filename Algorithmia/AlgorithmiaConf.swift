@@ -11,5 +11,5 @@ import Foundation
 class Algo {
     static let SWIFT_VERSION = "3.0"
     static let CLIENT_VERSION = "1.0"
-    static let apiBaseURL=URL(string: "https://api.algorithmia.com/")!
+    static let apiBaseUrl="https://api.algorithmia.com"
 }

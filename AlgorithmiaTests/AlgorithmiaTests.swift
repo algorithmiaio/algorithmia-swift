@@ -255,11 +255,11 @@ class AlgorithmiaTests: XCTestCase {
                     XCTFail("Algorithmia Listing Error: \(error)")
                     expect.fulfill()
                 }
-                 else if(count == 1) {
+                 else {
                     expect.fulfill()
                 }
         })
-        waitForExpectations(timeout: 10.0) { error in
+        waitForExpectations(timeout: 20.0) { error in
             if let error = error {
                 XCTFail("WaitForExectationsWithTimeout error: \(error)")
             }

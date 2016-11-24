@@ -66,6 +66,7 @@ class AlgoRequest {
     }
     
     let path:String
+    let url:URL
     let method:HTTPMethod
     var contentType:MIMEType?
     let data:AlgoEntity?
@@ -81,6 +82,7 @@ class AlgoRequest {
         self.session = session
         let agentHeader = HTTPHeader.UserAgent(String(format:"algorithmia-swift/%@ (Swift %@)",Algo.CLIENT_VERSION,Algo.SWIFT_VERSION))
         self.headers = [agentHeader]
+        self.url = URL(string: path)!
     }
     
     func setHeader(value:String, key:String) {
@@ -88,8 +90,7 @@ class AlgoRequest {
     }
     
     func execute(completion:@escaping AlgoCompletionHandler) {
-        let url = URL(string: path, relativeTo: AlgoAPIClient.baseURL())
-        var httpRequest = URLRequest(url: url!)
+        var httpRequest = URLRequest(url: url)
         httpRequest.httpMethod = method.rawValue
         
         // HTTP headers
@@ -132,8 +133,7 @@ class AlgoRequest {
     }
     
     func send(completion:@escaping AlgoDataCompletionHandler) {
-        let url = URL(string: path, relativeTo: AlgoAPIClient.baseURL())
-        var httpRequest = URLRequest(url: url!)
+        var httpRequest = URLRequest(url: url)
         httpRequest.httpMethod = method.rawValue
         // HTTP headers
         if let dataHeaders = data?.headers() {
@@ -154,8 +154,7 @@ class AlgoRequest {
     }
     
     func send(file:URL, completion:@escaping AlgoDataCompletionHandler) {
-        let url = URL(string: path, relativeTo: AlgoAPIClient.baseURL())
-        var httpRequest = URLRequest(url: url!)
+        var httpRequest = URLRequest(url: url)
         httpRequest.httpMethod = method.rawValue
         // HTTP headers
         if let dataHeaders = data?.headers() {
@@ -175,8 +174,7 @@ class AlgoRequest {
     }
     
     func download(completion:@escaping AlgoDownloadCompletionHandler) {
-        let url = URL(string: path, relativeTo: AlgoAPIClient.baseURL())
-        var httpRequest = URLRequest(url: url!)
+        var httpRequest = URLRequest(url: url)
         for header in headers {
             httpRequest.addValue(header.requestHeaderValue, forHTTPHeaderField: header.key)
         }
