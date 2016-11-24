@@ -51,6 +51,7 @@ class AlgorithmiaTests: XCTestCase {
             if (error == nil) {
                 print(resp.getJson())
                 expect.fulfill()
+                
             }
             else {
                 print(error)
@@ -90,7 +91,7 @@ class AlgorithmiaTests: XCTestCase {
     func testTimeoutOption() {
         let expect = expectation(description: "Query option algorithm test")
         let data = "Testing echo".data(using: .utf8)
-        _ = client?.algo(algoUri: "algo://util/Echo/0.2.1").set(timeout: 10).pipe(data: data) { (resp, error) in
+        _ = client?.algo(algoUri: "algo://util/Echo/0.2.1").set(timeout: 10).pipe(data: data) { resp, error in
             if let error=error {
                 XCTFail("Algorithmia Query option Test error: \(error)")
             } else {
@@ -112,7 +113,7 @@ class AlgorithmiaTests: XCTestCase {
     func testProcessFailed() {
         let expect = expectation(description: "Test Process Failed")
         let data = "Testing echo".data(using: .utf8)
-        _ = client?.algo(algoUri: "algo://test/random").pipe(data: data) { (resp, error) in
+        _ = client?.algo(algoUri: "algo://test/random").pipe(data: data) { resp, error in
             if let error = error as? AlgoError {
                 switch error {
                 case .ProcessError:
@@ -139,13 +140,13 @@ class AlgorithmiaTests: XCTestCase {
     func testFilePutString() {
         let expect = expectation(description: "Test put File")
         let file = client?.file("data://.my/test/test.txt")
-        file?.put(string: "test text", completion: { (error) in
+        file?.put(string: "test text") { error in
             if let error=error {
                 XCTFail("Algorithmia File put Test error: \(error)")
             } else {
                 expect.fulfill()
             }
-        })
+        }
         
         waitForExpectations(timeout: 10.0) { error in
             if let error = error {
@@ -159,7 +160,7 @@ class AlgorithmiaTests: XCTestCase {
         let expect = expectation(description: "Test put File")
         let file = client?.file("data://.my/test/test.dat")
         let data = "test text".data(using: .utf8)!
-        file?.put(data: data, completion: { (error) in
+        file?.put(data: data, completion: { error in
             if let error=error {
                 XCTFail("Algorithmia File put Test error: \(error)")
             } else {
@@ -178,7 +179,7 @@ class AlgorithmiaTests: XCTestCase {
     func testFileExits() {
         let expect = expectation(description: "Test File exist")
         let file = client?.file("data://.my/test/test.txt")
-        file?.exists(completion: { (isExist, error) in
+        file?.exists { isExist, error in
             if error != nil {
                 XCTFail("Algorithmia File Exist function Error: \(error)")
             }
@@ -188,7 +189,7 @@ class AlgorithmiaTests: XCTestCase {
                 }
             }
             expect.fulfill()
-        })
+        }
         waitForExpectations(timeout: 10.0) { error in
             if let error = error {
                 XCTFail("WaitForExectationsWithTimeout error: \(error)")
@@ -200,7 +201,7 @@ class AlgorithmiaTests: XCTestCase {
     func testFileGet() {
         let expect = expectation(description: "Test File getString")
         let file = client?.file("data://.my/test/test.txt")
-        file?.getString(completion: { (text, error) in
+        file?.getString { text, error in
             if let _ = text {
                 print("File content:",text)
                 expect.fulfill()
@@ -208,7 +209,7 @@ class AlgorithmiaTests: XCTestCase {
             else {
                 XCTFail("Algorithmia File Not found: \(error)")
             }
-        })
+        }
         
         waitForExpectations(timeout: 10.0) { error in
             if let error = error {
@@ -222,7 +223,7 @@ class AlgorithmiaTests: XCTestCase {
     func testFileGetFile() {
         let expect = expectation(description: "Test File getFile")
         let file = client?.file("data://.my/test/test.txt")
-        file?.getFile(completion: { (url, error) in
+        file?.getFile { url, error in
             if let url = url {
                 let text = try! String(contentsOf: url)
                 print("File content:",text)
@@ -231,7 +232,7 @@ class AlgorithmiaTests: XCTestCase {
             else {
                 XCTFail("Algorithmia File Not found: \(error)")
             }
-        })
+        }
         
         waitForExpectations(timeout: 10.0) { error in
             if let error = error {
@@ -245,11 +246,11 @@ class AlgorithmiaTests: XCTestCase {
         let expect = expectation(description: "Test Directory listing")
         let dir = client?.dir("data://.my/test/")
         var count = 0;
-        _ = dir?.forEach(file: { (file) in
+        _ = dir?.forEach(file: { file in
                 print(file?.path)
                 count = count + 1;
 
-            }, completion: { (error) in
+            }, completion: { error in
                 if let error = error {
                     XCTFail("Algorithmia Listing Error: \(error)")
                     expect.fulfill()
@@ -315,7 +316,7 @@ class AlgorithmiaTests: XCTestCase {
                 XCTFail("Algorithmia Create folder error: \(error)")
                 
             }
-            dir?.delete(force: true, completion: { (result, error) in
+            dir?.delete(force: true)  { result, error in
                 if error != nil {
                     XCTFail("Algorithmia Delete File Error: \(error)")
                     expect.fulfill()
@@ -324,7 +325,7 @@ class AlgorithmiaTests: XCTestCase {
                     print(result?.deletedCount)
                     expect.fulfill()
                 }
-            })
+            }
         }
         waitForExpectations(timeout: 10.0) { error in
             if let error = error {
