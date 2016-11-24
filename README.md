@@ -43,8 +43,34 @@ Notes:
 - API key may be omitted only when making calls from algorithms running on the Algorithmia cluster
 
 ## Calling Algorithms
+The following examples of calling algorithms are organized by type of input/output which vary between algorithms.
 
-Algorithms are called with the `pipe` method using
+Note: a single algorithm may have different input and output types, or accept multiple types of input,
+so consult the algorithm's description for usage examples specific to that algorithm.
+
+### Text input/output
+
+Call an algorithm with text input by simply passing a string into its `pipe` method.
+If the algorithm output is text, then call `getText` method to get result as string.
+
+```swift
+let foo = client.algo(algoUri: "algo://demo/Hello/0.1.1")
+foo.pipe(text: "foo") { resp, error in
+    if (error == nil) {
+        let data = resp.getText()
+        let metadata = resp.getMetadata()
+    } else {
+        print(error)
+    }
+}
+```
+
+### JSON input/output
+
+Call an algorithm with JSON input by simply passing in a type that can be serialized to JSON:
+most notably python dicts and arrays. 
+For algorithms that return JSON, call `getJson` method of the response to get the appropriate
+deserialized type.
 
 ```swift
 let foo = client.algo(algoUri: "algo://WebPredict/ListAnagrams/0.1.0")
@@ -52,22 +78,62 @@ foo.pipe(json: jsonData) { resp, error in
     if (error == nil) {
         let data = resp.getJSON()
         let metadata = resp.getMetadata()
-    }
-    else {
+    } else {
         print(error)
     }
 }
 ```
-
 If you already have serialzied JSON, you can call as follows:
 
 ```swift
 let foo = client.algo("")
 let jsonWords = "[\"transformer\", \"terraforms\", \"retransform\"]"
 foo.pipe(rawJson: jsonWords) { resp, error in
-   ...
+   
 }
 ```
+### Binary input/output
+
+Call an algorithm with Binary input by passing a Data Object into the `pipe` method.
+Similarly, if the algorithm response is binary data, then result of `getData` method
+will be a Data object from byte array.
+
+```swift
+let foo = client.algo(algoUri: "algo://WebPredict/ListAnagrams/0.1.0")
+foo.pipe(data: data) { resp, error in
+    if (error == nil) {
+        let data = resp.getData()
+        let metadata = resp.getMetadata()
+    } else {
+        print(error)
+    }
+}
+```
+
+
+### Error handling
+
+API errors and Algorithm exceptions will return `AlgoError` in callback to `pipe` method:
+
+```swift
+let foo = client.algo(algoUri: "algo://util/whoopsWrongAlgo")
+foo.pipe(text: "foo") { resp, error in
+    if let error = error as? AlgoError {
+        switch error {
+        case .ProcessError:
+            print("Algorithmia Error:",error)
+            break;
+        case .DataError:
+            print("Data Error:",error)
+            break;
+        default:
+            break;
+        }
+    }
+}
+// Algorithmia Error: algorithm algo://util/whoopsWrongAlgo not found
+```
+
 
 ## Working with Data
 
