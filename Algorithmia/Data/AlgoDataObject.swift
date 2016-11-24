@@ -91,7 +91,7 @@ class AlgoDataObject {
     /// Return full path of File/Directory. e.g., data://.my/foo/bar.txt
     ///
     /// - returns: full path of File/Directory
-    func fullPath() -> String {
+    func toDataURI() -> String {
         return "data://"+self.path
     }
     

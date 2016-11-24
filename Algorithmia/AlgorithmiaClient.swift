@@ -11,13 +11,15 @@ import Foundation
 class AlgorithmiaClient {
     var apiClient:AlgoAPIClient
     init() {
-        self.apiClient = AlgoAPIClient(auth: nil)
+        self.apiClient = AlgoAPIClient(auth: nil, baseUrl:Algo.apiBaseUrl)
     }
     init(auth:AlgorithmiaAuth) {
-        self.apiClient = AlgoAPIClient(auth: auth)
+        self.apiClient = AlgoAPIClient(auth: auth, baseUrl:Algo.apiBaseUrl)
     }
     
-    
+    init(auth:AlgorithmiaAuth, baseUrl:String) {
+        self.apiClient = AlgoAPIClient(auth: auth, baseUrl:baseUrl)
+    }
     /// Get algorithm object
     ///
     /// - parameter algoUri: algorithm uri, eg. 'algo://demo/Hello/0.1.1'

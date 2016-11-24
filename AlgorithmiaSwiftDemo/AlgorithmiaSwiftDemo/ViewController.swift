@@ -69,7 +69,7 @@ class ViewController: UIViewController ,UIImagePickerControllerDelegate, UINavig
     func processImage(file:AlgoDataFile) {
         let param:[String:Any] = [
             "images": [
-                file.fullPath()
+                file.toDataURI()
             ],
             "savePaths": [
                 resultPath
