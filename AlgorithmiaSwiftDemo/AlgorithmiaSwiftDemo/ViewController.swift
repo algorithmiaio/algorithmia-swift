@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController ,UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
-    let client = Algorithmia.client(simpleKey: "%PLACE_YOUR_API_KEY%")
+    let client = Algorithmia.client(simpleKey: ProcessInfo.processInfo.environment["ALGORITHMIA_API_KEY"] ?? "%PLACE_YOUR_API_KEY%")
     let imagePicker = UIImagePickerController()
     var image:UIImage?
     let sourcePath = "data://.my/test/photo.jpg"
