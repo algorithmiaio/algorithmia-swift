@@ -1,4 +1,4 @@
-#algorithmia-swift
+#algorithmia
 ===================
 A Swift/iOS client library for the Algorithmia API
 
@@ -6,8 +6,8 @@ Note: This client was written with Swift 3.0 (Xcode 8, iOS 10)
 
 For API documentation, see the [SwiftDocs](https://algorithmia.com/docs/lang/swift)
 
-[![CocoaPods](https://img.shields.io/cocoapods/v/Algorithmia-Swift.svg)]()
-[![CocoaPods](https://img.shields.io/cocoapods/l/Algorithmia-Swift.svg)]()
+[![CocoaPods](https://img.shields.io/cocoapods/v/Algorithmia.svg)]()
+[![CocoaPods](https://img.shields.io/cocoapods/l/Algorithmia.svg)]()
 [![](https://img.shields.io/badge/OS%20X-10.9%2B-lightgrey.svg)]()
 [![](https://img.shields.io/badge/iOS-10.0%2B-lightgrey.svg)]()
 
@@ -24,7 +24,7 @@ use_frameworks!
 source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '10.0'
 
-pod 'algorithmia-swift'
+pod 'algorithmia'
 ```
 
 And run `pod install`.

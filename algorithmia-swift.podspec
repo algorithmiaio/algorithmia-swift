@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
   #  summary should be tweet-length, and the description more in depth.
   #
 
-  s.name         = "algorithmia-swift"
+  s.name         = "algorithmia"
   s.version      = "0.1.0"
   s.summary      = "A Swift/iOS client library for the Algorithmia API"
 
@@ -51,7 +51,7 @@ Pod::Spec.new do |s|
   #  profile URL.
   #
 
-  s.author             = { "Erik Ilyin" => "erik.ilyin@aol.com" }
+  s.author             = { "Erik Ilyin" => "erik.ilyin@aol.com", "Algorithmia" => "devops@algorithmia.com" }
   # Or just: s.author    = "Erik Ilyin"
   # s.authors            = { "Erik Ilyin" => "erik.ilyin@aol.com" }
   # s.social_media_url   = "http://twitter.com/Erik Ilyin"
