@@ -23,13 +23,13 @@ to your iOS or Swift applications.
   s.homepage         = 'https://github.com/algorithmiaio/algorithmia-swift'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'Algorithmia' => 'devops@algorithmia.com' }
+  s.authors           = { 'Erik Ilyin' =>'erik.ilyin@aol.com', 'Algorithmia' => 'devops@algorithmia.com' }
   s.source           = { :git => 'https://github.com/algorithmiaio/algorithmia-swift.git', :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/algorithmia'
 
   s.ios.deployment_target = '8.0'
 
-  s.source_files = 'Algorithmia/**/*'
+  s.source_files  = 'Algorithmia/*.{swift}', 'Algorithmia/**/*.{swift}','Algorithmia/Client/Auth/*.{swift}'
   
   # s.resource_bundles = {
   #   'algorithmia' => ['algorithmia/Assets/*.png']
