@@ -9,7 +9,8 @@
 import Foundation
 
 class Algo {
-    static let SWIFT_VERSION = "3.0"
-    static let CLIENT_VERSION = "1.0"
-    static let apiBaseUrl="https://api.algorithmia.com"
+    static let SWIFT_VERSION    = "3.0"
+    static let CLIENT_VERSION   = "1.0"
+    static let apiBaseUrl       = "https://api.algorithmia.com"
+    static let DATA_BASE_PATH   = "v1/connector"
 }

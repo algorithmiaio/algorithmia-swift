@@ -38,7 +38,7 @@ class AlgoDataObject {
     
     init(client:AlgoAPIClient, dataUrl:String, type:DataObjectType) {
         self.client = client
-        self.path = dataUrl.replacingOccurrences(of: "^data://|^/", with: "", options: .regularExpression)
+        self.path = dataUrl
         self.dataType = type
     }
     
@@ -61,8 +61,13 @@ class AlgoDataObject {
     }
     
     func getUrl() -> String {
-        
-        return "v1/data/" + self.path.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        var connector = "data"
+        var subPath = self.path
+        if let range = self.path.range(of: "://") {
+            connector = self.path.substring(to: range.lowerBound)
+            subPath = self.path.substring(from: range.upperBound)
+        }
+        return Algo.DATA_BASE_PATH + "/" + connector + "/" + subPath.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
     }
     
     
@@ -92,7 +97,7 @@ class AlgoDataObject {
     ///
     /// - returns: full path of File/Directory
     func toDataURI() -> String {
-        return "data://"+self.path
+        return self.path
     }
     
     class DeletedResult {
