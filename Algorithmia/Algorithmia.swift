@@ -26,6 +26,17 @@ class Algorithmia {
         return AlgorithmiaClient(auth: AlgorithmiaSimpleAuth(apiKey: simpleKey))
     }
     
+    
+    /// Returns an Algorithmia client that makes all requests with your API key. If API key is null, the default client is returned
+    ///
+    /// - Parameters:
+    ///   - simpleKey: API Key for simple authenticiation (prefixed with "sim")
+    ///   - baseUrl: baseUrl for API server. e.g. "https://api.algorithmia.com"
+    /// - Returns: an Algorithmia Client
+    public static func client(simpleKey:String, baseUrl:String) -> AlgorithmiaClient {
+        return AlgorithmiaClient(auth: AlgorithmiaSimpleAuth(apiKey: simpleKey), baseUrl:baseUrl)
+    }
+    
     static func getDefaultClient() -> AlgorithmiaClient {
         return defaultClient;
     }
