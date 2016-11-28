@@ -11,7 +11,11 @@ import Foundation
 class AlgorithmiaClient {
     var apiClient:AlgoAPIClient
     init() {
-        self.apiClient = AlgoAPIClient(auth: ProcessInfo.processInfo.environment["ALGORITHMIA_API_KEY"], baseUrl:Algo.apiBaseUrl)
+        var auth:AlgorithmiaAuth?
+        if let apiKey = ProcessInfo.processInfo.environment["ALGORITHMIA_API_KEY"] {
+            auth = AlgorithmiaSimpleAuth(apiKey:apiKey)
+        }
+        self.apiClient = AlgoAPIClient(auth: auth, baseUrl:Algo.apiBaseUrl)
     }
     init(auth:AlgorithmiaAuth) {
         self.apiClient = AlgoAPIClient(auth: auth, baseUrl:Algo.apiBaseUrl)
