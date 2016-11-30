@@ -8,12 +8,12 @@
 
 import Foundation
 
-enum AlgoError : Error {
+public enum AlgoError : Error {
     case UnknownError
     case DataError(String)
     case ProcessError(Int, String)
     
-    var localizedDescription: String {
+    public var localizedDescription: String {
         switch self {
         case .DataError(let message):
             return message

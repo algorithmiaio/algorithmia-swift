@@ -8,7 +8,7 @@
 
 import Foundation
 
-class AlgoResponseData {
+public class AlgoResponseData {
     var statusCode:Int=0
     var rawData:Data?
     var error:Error?

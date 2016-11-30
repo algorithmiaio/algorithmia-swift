@@ -8,9 +8,9 @@
 
 import Foundation
 
-typealias AlgoDataListingHandler = ( AlgoDataObject?) -> Void
+public typealias AlgoDataListingHandler = ( AlgoDataObject?) -> Void
 
-class AlgoDataDirectory:AlgoDataObject {
+public class AlgoDataDirectory:AlgoDataObject {
     
     init(client: AlgoAPIClient, dataUrl: String) {
         var dirUrl = dataUrl
@@ -25,7 +25,7 @@ class AlgoDataDirectory:AlgoDataObject {
     ///
     /// - parameter completion: completion handler. It takes one parameter
     /// * error: An error object that indicates why the request failed, or nil if the request was successful.
-    func create(_ completion:@escaping AlgoSimpleCompletionHandler) {
+    public func create(_ completion:@escaping AlgoSimpleCompletionHandler) {
         self.create(readACL: nil, completion: completion)
     }
     
@@ -34,7 +34,7 @@ class AlgoDataDirectory:AlgoDataObject {
     /// - parameter readACL: read access control list for new directory.
     /// - parameter completion: completion handler. It takes one parameter
     /// * error: An error object that indicates why the request failed, or nil if the request was successful.
-    func create(readACL:DataACL? , completion:@escaping AlgoSimpleCompletionHandler) {
+    public func create(readACL:DataACL? , completion:@escaping AlgoSimpleCompletionHandler) {
         
         var param:[String:Any] = ["name":self.basename()]
         if let readACL = readACL {
@@ -52,7 +52,7 @@ class AlgoDataDirectory:AlgoDataObject {
     /// - parameter readACL: read access control list for current directory.
     /// - parameter completion: completion handler. It takes one parameter
     /// * error: An error object that indicates why the request failed, or nil if the request was successful.
-    func update(readACL:DataACL , completion:@escaping AlgoSimpleCompletionHandler) {
+    public func update(readACL:DataACL , completion:@escaping AlgoSimpleCompletionHandler) {
         let entity = try! AlgoJSONEntity(entity: ["acl":["read":readACL.value]])
         _ = client.send(method: .PATCH, path: self.getUrl(), data: entity) { respData in
             completion(respData.error)
@@ -64,7 +64,7 @@ class AlgoDataDirectory:AlgoDataObject {
     /// - parameter force: boolean that indicates force deletion of directory even if it still has other files in it
     /// - parameter completion: completion handler. It takes one parameter
     /// * error: An error object that indicates why the request failed, or nil if the request was successful.
-    func delete(force:Bool, completion:@escaping (DeletedResult?, Error?) -> Void ) {
+    public func delete(force:Bool, completion:@escaping (DeletedResult?, Error?) -> Void ) {
         _ = client.send(method: .DELETE, path: self.getUrl(), data: nil, options:["force":String(force)]) { respData in
             var jsonData:[String:Any]?
             var aError:Error?
@@ -88,7 +88,7 @@ class AlgoDataDirectory:AlgoDataObject {
     /// - parameter name: filename
     ///
     /// - returns: File object in directory
-    func file(name:String) -> AlgoDataFile {
+    public func file(name:String) -> AlgoDataFile {
         return AlgoDataFile(client: self.client, dataUrl: self.path + "/" + name)
     }
     
@@ -98,7 +98,7 @@ class AlgoDataDirectory:AlgoDataObject {
     /// - parameter name: name of directory
     ///
     /// - returns: Directory object
-    func dir(name:String) -> AlgoDataDirectory {
+    public func dir(name:String) -> AlgoDataDirectory {
         return AlgoDataDirectory(client: self.client, dataUrl: self.path + "/" + name)
     }
     
@@ -108,7 +108,7 @@ class AlgoDataDirectory:AlgoDataObject {
     /// - parameter file:       URL of local file
     /// - parameter completion: completion handler. It takes one parameter
     /// * error: An error object that indicates why the request failed, or nil if the request was successful.
-    func put(file:URL, completion:@escaping (AlgoDataFile?, Error?) -> Void) {
+    public func put(file:URL, completion:@escaping (AlgoDataFile?, Error?) -> Void) {
         let filename = file.lastPathComponent
         let dataFile = self.file(name: filename)
         dataFile.put(file: file) { (error) in
@@ -129,7 +129,7 @@ class AlgoDataDirectory:AlgoDataObject {
     /// - parameter completion: completion handler. It will be invoked when iteration completes or fails. It takes one parameter
     /// * error: An error object that indicates why the request failed, or nil if the request was successful.
     /// - returns: Data listing reference
-    func forEach(_ object:@escaping AlgoDataListingHandler, completion:@escaping AlgoSimpleCompletionHandler) -> AlgoDataListing {
+    public func forEach(_ object:@escaping AlgoDataListingHandler, completion:@escaping AlgoSimpleCompletionHandler) -> AlgoDataListing {
         let listing = AlgoDataListing(client: client, path: getUrl())
         listing.incFile = true
         listing.incDir = true
@@ -144,7 +144,7 @@ class AlgoDataDirectory:AlgoDataObject {
     /// - parameter completion: completion handler. It will be invoked when iteration completes or fails. It takes one parameter
     /// * error: An error object that indicates why the request failed, or nil if the request was successful.
     /// - returns: Data listing reference
-    func forEach(dir:@escaping (AlgoDataDirectory?) -> Void, completion:@escaping AlgoSimpleCompletionHandler) -> AlgoDataListing {
+    public func forEach(dir:@escaping (AlgoDataDirectory?) -> Void, completion:@escaping AlgoSimpleCompletionHandler) -> AlgoDataListing {
         let listing = AlgoDataListing(client: client, path: getUrl())
         listing.incFile = false
         listing.incDir = true
@@ -162,7 +162,7 @@ class AlgoDataDirectory:AlgoDataObject {
     /// - parameter completion: completion handler. It will be invoked when iteration completes or fails. It takes one parameter
     /// * error: An error object that indicates why the request failed, or nil if the request was successful.
     /// - returns: Data listing reference
-    func forEach(file:@escaping (AlgoDataFile?) -> Void, completion:@escaping AlgoSimpleCompletionHandler) -> AlgoDataListing {
+    public func forEach(file:@escaping (AlgoDataFile?) -> Void, completion:@escaping AlgoSimpleCompletionHandler) -> AlgoDataListing {
         let listing = AlgoDataListing(client: client, path: getUrl())
         listing.incFile = true
         listing.incDir = false
@@ -175,14 +175,14 @@ class AlgoDataDirectory:AlgoDataObject {
     
 }
 
-class AlgoDataListing {
+public class AlgoDataListing {
     var client: AlgoAPIClient
-    var path: String
+    public var path: String
     var page:[String:Any]?
     var marker: String?
     var handler: AlgoDataListingHandler?
-    var incFile: Bool
-    var incDir: Bool
+    public var incFile: Bool
+    public var incDir: Bool
     
     init(client: AlgoAPIClient, path: String) {
         self.client = client;

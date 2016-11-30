@@ -10,7 +10,7 @@ import Foundation
 /**
  * Instantiate Algorithmia clients for calling algorithms and accessing data
  */
-class Algorithmia {
+public class Algorithmia {
     static let defaultClient=AlgorithmiaClient()
     public static func client() -> AlgorithmiaClient {
         return getDefaultClient();

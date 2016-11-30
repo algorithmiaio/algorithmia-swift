@@ -9,10 +9,10 @@
 import Foundation
 
 
-typealias AlgoCompletionHandler = (AlgoResponse,Error?)-> Void
-typealias AlgoDataCompletionHandler = (AlgoResponseData)-> Void
-typealias AlgoDownloadCompletionHandler = (URL?,Error?)-> Void
-typealias AlgoSimpleCompletionHandler = (Error?)-> Void
+public typealias AlgoCompletionHandler = (AlgoResponse,Error?)-> Void
+public typealias AlgoDataCompletionHandler = (AlgoResponseData)-> Void
+public typealias AlgoDownloadCompletionHandler = (URL?,Error?)-> Void
+public typealias AlgoSimpleCompletionHandler = (Error?)-> Void
 /**
  * A minimal API client
  */

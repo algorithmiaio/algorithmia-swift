@@ -8,12 +8,12 @@
 
 import Foundation
 
-enum AlgoOption {
+public enum AlgoOption {
     case Timeout(Int)
     case Stdout(Bool)
     case Custom(String, String)
     
-    var value:String {
+    public var value:String {
         switch self {
         case .Timeout(let time):
             return String(time)
@@ -24,7 +24,7 @@ enum AlgoOption {
         }
     }
     
-    var key:String {
+    public var key:String {
         switch self {
         case .Timeout(_):
             return "timeout"

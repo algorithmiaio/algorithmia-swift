@@ -9,13 +9,13 @@
 import Foundation
 
 /// Base object to file and directory
-class AlgoDataObject {
-    enum DataObjectType {
+public class AlgoDataObject {
+    public enum DataObjectType {
         case File
         case Directory
     }
     
-    enum DataACL {
+    public enum DataACL {
         case PUBLIC
         case MY_ALGORITHMS
         case PRIVATE
@@ -46,7 +46,7 @@ class AlgoDataObject {
     /// Check if file exists
     ///
     /// - parameter completion: completion handler
-    func exists(completion:@escaping (Bool,Error?)-> Void) {
+    public func exists(completion:@escaping (Bool,Error?)-> Void) {
         _ = client.send(method:.HEAD, path: getUrl(), data:nil) { resp in
             if resp.statusCode == 200 {
                 completion(true, nil)
@@ -74,7 +74,7 @@ class AlgoDataObject {
     /// Return parent directory object. It return nil if this is root directory
     ///
     /// - returns: Directory object
-    func parent() -> AlgoDataDirectory? {
+    public func parent() -> AlgoDataDirectory? {
         if let range = self.path.range(of: "/", options: .backwards) {
             return AlgoDataDirectory(client:client, dataUrl:self.path.substring(to: range.upperBound))
         }
@@ -87,7 +87,7 @@ class AlgoDataObject {
     /// Return name of File/Directory object
     ///
     /// - returns: name of file/directory
-    func basename() -> String {
+    public func basename() -> String {
         let range = self.path.range(of: "/", options: .backwards)!
         return self.path.substring(from: range.upperBound)
     }
@@ -96,13 +96,13 @@ class AlgoDataObject {
     /// Return full path of File/Directory. e.g., data://.my/foo/bar.txt
     ///
     /// - returns: full path of File/Directory
-    func toDataURI() -> String {
+    public func toDataURI() -> String {
         return self.path
     }
     
-    class DeletedResult {
-        var isSuccess:Bool
-        var deletedCount:Int
+    public class DeletedResult {
+        public var isSuccess:Bool
+        public var deletedCount:Int
         init(_ json:[String:Any]) {
             isSuccess = false
             deletedCount = 0
