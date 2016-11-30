@@ -7,7 +7,7 @@
 #
 
 Pod::Spec.new do |s|
-  s.name             = 'Algorithmia'
+  s.name             = 'algorithmia'
   s.version          = '0.1.2'
   s.summary          = 'Client for calling algorithms hosted on the Algorithmia marketplace'
   s.description      = <<-DESC
