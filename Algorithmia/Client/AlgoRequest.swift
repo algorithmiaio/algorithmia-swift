@@ -8,7 +8,7 @@
 
 import Foundation
 
-class AlgoRequest {
+public class AlgoRequest {
     
     public enum HTTPMethod: String {
         case GET    = "GET"

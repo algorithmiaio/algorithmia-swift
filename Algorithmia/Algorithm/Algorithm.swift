@@ -11,7 +11,7 @@ import Foundation
 /**
  * Represents an Algorithmia algorithm that can be called
  */
-class Algorithm {
+public class Algorithm {
     weak var client:AlgorithmiaClient?
     let algoRef:AlgorithmRef
     var options:[String: String] = [String: String]()
@@ -25,7 +25,7 @@ class Algorithm {
     /// - parameter option: option to set, eg. timeout, stdout, output
     ///
     /// - returns: Algorithm object
-    func setOption(_ option:AlgoOption) -> Self {
+    public func setOption(_ option:AlgoOption) -> Self {
         options[option.key] = option.value
         return self
     }
@@ -36,11 +36,11 @@ class Algorithm {
     /// - parameter timeout: timeout for algorithm
     ///
     /// - returns: Algorithm object
-    func set(timeout:Int) -> Self {
+    public func set(timeout:Int) -> Self {
         return setOption(.Timeout(timeout))
     }
     
-    func set(stdout:Bool) -> Self {
+    public func set(stdout:Bool) -> Self {
         return setOption(.Stdout(stdout))
     }
     
@@ -50,7 +50,7 @@ class Algorithm {
     /// - parameter completion: completion handler, return response and error. For output, check getText(), getJson(), getData() in AlgoResponse object.
     ///
     /// - returns: Request object
-    @discardableResult func pipe(text:String!, completion:@escaping AlgoCompletionHandler) -> AlgoRequest? {
+    @discardableResult public func pipe(text:String!, completion:@escaping AlgoCompletionHandler) -> AlgoRequest? {
         return client?.apiClient.execute(path: algoRef.getPath(), data: AlgoStringEntity(entity: text), options: options, completion: completion)
     }
     
@@ -60,7 +60,7 @@ class Algorithm {
     /// - parameter completion: completion handler, return response and error. For output, check getText(), getJson(), getData() in AlgoResponse object.
     ///
     /// - returns: Request object
-    @discardableResult func pipe(json:Any!, completion:@escaping AlgoCompletionHandler) -> AlgoRequest? {
+    @discardableResult public func pipe(json:Any!, completion:@escaping AlgoCompletionHandler) -> AlgoRequest? {
         do {
             let entity = try AlgoJSONEntity(entity: json)
             return client?.apiClient.execute(path: algoRef.getPath(), data: entity, options: options, completion: completion)
@@ -77,7 +77,7 @@ class Algorithm {
     /// - parameter completion: completion handler, return response and error. For output, check getText(), getJson(), getData() in AlgoResponse object.
     ///
     /// - returns: Request object
-    @discardableResult func pipe(rawJson:String!, completion:@escaping AlgoCompletionHandler) -> AlgoRequest? {
+    @discardableResult public func pipe(rawJson:String!, completion:@escaping AlgoCompletionHandler) -> AlgoRequest? {
         do {
             let entity = try AlgoJSONEntity(plain: rawJson)
             return client?.apiClient.execute(path: algoRef.getPath(), data: entity, options: options, completion: completion)
@@ -93,7 +93,7 @@ class Algorithm {
     /// - parameter completion: completion handler, return response and error. For output, check getText(), getJson(), getData() in AlgoResponse object.
     ///
     /// - returns: Request object
-    @discardableResult func pipe(data:Data!, completion:@escaping AlgoCompletionHandler) -> AlgoRequest? {
+    @discardableResult public func pipe(data:Data!, completion:@escaping AlgoCompletionHandler) -> AlgoRequest? {
         return client?.apiClient.execute(path: algoRef.getPath(), data:  AlgoBinaryEntity(data: data), options:options, completion: completion)
     }
 }

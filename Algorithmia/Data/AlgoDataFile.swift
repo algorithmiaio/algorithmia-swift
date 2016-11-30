@@ -9,7 +9,7 @@
 import Foundation
 
 /// Object to file in the data API
-class AlgoDataFile:AlgoDataObject {
+public class AlgoDataFile:AlgoDataObject {
     
     init(client: AlgoAPIClient, dataUrl: String) {
         super.init(client: client, dataUrl: dataUrl, type: .File)
@@ -21,7 +21,7 @@ class AlgoDataFile:AlgoDataObject {
     /// - parameter completion: completion handler. It takes two parameter
     /// * string: string that is decoded as utf-8 charset
     /// * error: An error object that indicates why the request failed, or nil if the request was successful.
-    func getString(completion:@escaping (String?, Error?) -> Void) {
+    public func getString(completion:@escaping (String?, Error?) -> Void) {
         _ = client.send(method:.GET, path: getUrl(), data:nil) { resp  in
             if resp.statusCode == 200 {
                 if let data = resp.rawData {
@@ -43,7 +43,7 @@ class AlgoDataFile:AlgoDataObject {
     /// - parameter completion: completion handler. It takes two parameter
     /// * data: data object
     /// * error: An error object that indicates why the request failed, or nil if the request was successful.
-    func getData(completion:@escaping (Data?, Error?) -> Void) {
+    public func getData(completion:@escaping (Data?, Error?) -> Void) {
         _ = client.send( method:.GET, path: getUrl(), data:nil) { resp in
             completion(resp.rawData, resp.error)
         }
@@ -54,7 +54,7 @@ class AlgoDataFile:AlgoDataObject {
     /// - parameter completion: completion handler. It takes two parameter
     /// * url: url of local file
     /// * error: An error object that indicates why the request failed, or nil if the request was successful.
-    func getFile(completion:@escaping AlgoDownloadCompletionHandler) {
+    public func getFile(completion:@escaping AlgoDownloadCompletionHandler) {
         client.download(path: getUrl(), completion: completion)
     }
     
@@ -64,7 +64,7 @@ class AlgoDataFile:AlgoDataObject {
     /// - parameter data:       data object
     /// - parameter completion: completion handler. It takes one parameter
     /// * error: An error object that indicates why the request failed, or nil if the request was successful.
-    func put(data:Data, completion:@escaping (Error?) -> Void) {
+    public func put(data:Data, completion:@escaping (Error?) -> Void) {
         _ = client.send(method:.PUT, path: getUrl(), data: AlgoBinaryEntity(data:data)) { resp in
             completion(resp.error)
         }
@@ -75,7 +75,7 @@ class AlgoDataFile:AlgoDataObject {
     /// - parameter string:       string object
     /// - parameter completion: completion handler. It takes one parameter
     /// * error: An error object that indicates why the request failed, or nil if the request was successful.
-    func put(string:String, completion:@escaping (Error?) -> Void) {
+    public func put(string:String, completion:@escaping (Error?) -> Void) {
         _ = client.send(method:.PUT, path: getUrl(), data: AlgoStringEntity(entity:string)) { resp in
             completion(resp.error)
         }
@@ -86,7 +86,7 @@ class AlgoDataFile:AlgoDataObject {
     /// - parameter file:       url of local file
     /// - parameter completion: completion handler. It takes one parameter
     /// * error: An error object that indicates why the request failed, or nil if the request was successful.
-    func put(file:URL, completion:@escaping (Error?) -> Void) {
+    public func put(file:URL, completion:@escaping (Error?) -> Void) {
         client.put(path: getUrl(), file: file) { resp in
             completion(resp.error)
         }
@@ -96,7 +96,7 @@ class AlgoDataFile:AlgoDataObject {
     ///
     /// - parameter completion: completion handler. It takes one parameter
     /// * error: An error object that indicates why the request failed, or nil if the request was successful.
-    func delete(completion:@escaping (Error?) -> Void) {
+    public func delete(completion:@escaping (Error?) -> Void) {
         _ = client.send(method: .DELETE, path: getUrl(), data: nil) { resp in
             completion(resp.error)
         }

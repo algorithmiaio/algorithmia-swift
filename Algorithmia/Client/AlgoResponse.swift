@@ -9,9 +9,9 @@
 import Foundation
 
 
-class AlgoResponse {
+public class AlgoResponse {
     
-    enum ContentType {
+    public enum ContentType {
         case UNKNOWN
         case TEXT
         case JSON
@@ -19,26 +19,26 @@ class AlgoResponse {
     }
     
     /// Metadata
-    struct Metadata {
-        let duration:Float
-        let contentType:ContentType?
-        let stdout:String?
-        let alerts:[String]?
+    public struct Metadata {
+        public let duration:Float
+        public let contentType:ContentType?
+        public let stdout:String?
+        public let alerts:[String]?
         
     }
     
-    struct ErrorData {
-        var message:String
-        var stacktrace:String?
+    public struct ErrorData {
+        public var message:String
+        public var stacktrace:String?
     }
-    var statusCode:Int=0
-    var rawData:Data?
+    public var statusCode:Int=0
+    public var rawData:Data?
     private var jsonData:[String: Any]?
     
     /// Error
     /// * message
     /// * stacktrace
-    var error:ErrorData?
+    public var error:ErrorData?
     
     init() {
         
@@ -78,14 +78,14 @@ class AlgoResponse {
     /// Get text output
     /// @warning Please make sure it return text content, otherwise it can cause error. You can check content type from getMetadata() function
     /// - returns: return text output.
-    func getText() -> String {
+    public func getText() -> String {
         return jsonData?["result"] as! String
     }
     
     /// Get json output
     /// @warning Please make sure it return json content, otherwise it can cause error. You can check content type from getMetadata() function
     /// - returns: return json output. It can be Dictionary or Array
-    func getJson() -> Any {
+    public func getJson() -> Any {
         return jsonData?["result"]
     }
     
@@ -93,7 +93,7 @@ class AlgoResponse {
     /// Get binary output
     /// @warning Please make sure it return binary content, otherwise it can cause error. You can check content type from getMetadata() function
     /// - returns: return binary output.
-    func getData() -> Data {
+    public func getData() -> Data {
         let result = jsonData?["result"] as! String
         return Data(base64Encoded: result)!
     }
@@ -104,7 +104,7 @@ class AlgoResponse {
     /// - returns: Metadata object 
     /// * contentType: content type of metadata
     /// * duration: duration time taken by algorithm
-    func getMetadata() -> Metadata {
+    public func getMetadata() -> Metadata {
         var metadata:Metadata
         let metadataInfo = self.jsonData?["metadata"] as! [String: Any]
         var type:ContentType = .UNKNOWN

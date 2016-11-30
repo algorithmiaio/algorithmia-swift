@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import Algorithmia
 class ViewController: UIViewController ,UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     let client = Algorithmia.client(simpleKey: ProcessInfo.processInfo.environment["ALGORITHMIA_API_KEY"] ?? "%PLACE_YOUR_API_KEY%")

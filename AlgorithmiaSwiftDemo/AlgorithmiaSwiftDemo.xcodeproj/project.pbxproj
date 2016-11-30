@@ -7,13 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		033A266F1DD2632A00F111FC /* AlgoOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033A266E1DD2632A00F111FC /* AlgoOption.swift */; };
-		03533D601DDE29CB009A07E0 /* AlgoDataDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03533D5D1DDE29CB009A07E0 /* AlgoDataDirectory.swift */; };
-		03533D611DDE29CB009A07E0 /* AlgoDataFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03533D5E1DDE29CB009A07E0 /* AlgoDataFile.swift */; };
-		03533D621DDE29CB009A07E0 /* AlgoDataObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03533D5F1DDE29CB009A07E0 /* AlgoDataObject.swift */; };
-		03533D641DDE2DF6009A07E0 /* AlgoResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03533D631DDE2DF6009A07E0 /* AlgoResponseData.swift */; };
-		036C93571DCA5D9E00E2EE97 /* AlgorithmiaConf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036C93561DCA5D9E00E2EE97 /* AlgorithmiaConf.swift */; };
-		036C93591DCAC5E600E2EE97 /* AlgoError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036C93581DCAC5E600E2EE97 /* AlgoError.swift */; };
 		036FDA801DC8906800E91C9F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036FDA7F1DC8906800E91C9F /* AppDelegate.swift */; };
 		036FDA821DC8906800E91C9F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036FDA811DC8906800E91C9F /* ViewController.swift */; };
 		036FDA851DC8906800E91C9F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 036FDA831DC8906800E91C9F /* Main.storyboard */; };
@@ -21,16 +14,8 @@
 		036FDA8A1DC8906800E91C9F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 036FDA881DC8906800E91C9F /* LaunchScreen.storyboard */; };
 		036FDA951DC8906800E91C9F /* AlgorithmiaSwiftDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036FDA941DC8906800E91C9F /* AlgorithmiaSwiftDemoTests.swift */; };
 		036FDAA01DC8906800E91C9F /* AlgorithmiaSwiftDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036FDA9F1DC8906800E91C9F /* AlgorithmiaSwiftDemoUITests.swift */; };
-		036FDAAF1DC8931100E91C9F /* AlgorithmiaClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036FDAAE1DC8931100E91C9F /* AlgorithmiaClient.swift */; };
-		036FDAB11DC8940600E91C9F /* Algorithmia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036FDAB01DC8940600E91C9F /* Algorithmia.swift */; };
-		036FDABB1DC8BBD900E91C9F /* AlgorithmiaAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036FDAB91DC8BBD900E91C9F /* AlgorithmiaAuth.swift */; };
-		036FDABC1DC8BBD900E91C9F /* AlgorithmiaSimpleAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036FDABA1DC8BBD900E91C9F /* AlgorithmiaSimpleAuth.swift */; };
-		036FDABE1DC8BC9200E91C9F /* AlgoAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036FDABD1DC8BC9200E91C9F /* AlgoAPIClient.swift */; };
-		036FDAC01DC8C18F00E91C9F /* AlgoEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036FDABF1DC8C18F00E91C9F /* AlgoEntity.swift */; };
-		036FDAC21DC8CD4400E91C9F /* AlgoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036FDAC11DC8CD4400E91C9F /* AlgoRequest.swift */; };
-		036FDAC91DC8DF8900E91C9F /* Algorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036FDAC81DC8DF8900E91C9F /* Algorithm.swift */; };
-		036FDACD1DC8E1E000E91C9F /* AlgorithmRef.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036FDACC1DC8E1E000E91C9F /* AlgorithmRef.swift */; };
-		036FDACF1DC8EA1500E91C9F /* AlgoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036FDACE1DC8EA1500E91C9F /* AlgoResponse.swift */; };
+		039EADF91DEEF9B800025E17 /* Algorithmia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 039EADF81DEEF9B800025E17 /* Algorithmia.framework */; };
+		039EADFA1DEEF9B800025E17 /* Algorithmia.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 039EADF81DEEF9B800025E17 /* Algorithmia.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		03A7FDAD1DCCBAA70075ECCF /* arnold.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 03A7FDAC1DCCBAA70075ECCF /* arnold.jpg */; };
 /* End PBXBuildFile section */
 
@@ -51,14 +36,21 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		039EADFB1DEEF9B800025E17 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				039EADFA1DEEF9B800025E17 /* Algorithmia.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		033A266E1DD2632A00F111FC /* AlgoOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlgoOption.swift; sourceTree = "<group>"; };
-		03533D5D1DDE29CB009A07E0 /* AlgoDataDirectory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlgoDataDirectory.swift; sourceTree = "<group>"; };
-		03533D5E1DDE29CB009A07E0 /* AlgoDataFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlgoDataFile.swift; sourceTree = "<group>"; };
-		03533D5F1DDE29CB009A07E0 /* AlgoDataObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlgoDataObject.swift; sourceTree = "<group>"; };
-		03533D631DDE2DF6009A07E0 /* AlgoResponseData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlgoResponseData.swift; sourceTree = "<group>"; };
-		036C93561DCA5D9E00E2EE97 /* AlgorithmiaConf.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlgorithmiaConf.swift; sourceTree = "<group>"; };
-		036C93581DCAC5E600E2EE97 /* AlgoError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlgoError.swift; sourceTree = "<group>"; };
 		036FDA7C1DC8906800E91C9F /* AlgorithmiaSwiftDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AlgorithmiaSwiftDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		036FDA7F1DC8906800E91C9F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		036FDA811DC8906800E91C9F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -72,16 +64,7 @@
 		036FDA9B1DC8906800E91C9F /* AlgorithmiaSwiftDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AlgorithmiaSwiftDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		036FDA9F1DC8906800E91C9F /* AlgorithmiaSwiftDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlgorithmiaSwiftDemoUITests.swift; sourceTree = "<group>"; };
 		036FDAA11DC8906800E91C9F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		036FDAAE1DC8931100E91C9F /* AlgorithmiaClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlgorithmiaClient.swift; sourceTree = "<group>"; };
-		036FDAB01DC8940600E91C9F /* Algorithmia.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Algorithmia.swift; sourceTree = "<group>"; };
-		036FDAB91DC8BBD900E91C9F /* AlgorithmiaAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlgorithmiaAuth.swift; sourceTree = "<group>"; };
-		036FDABA1DC8BBD900E91C9F /* AlgorithmiaSimpleAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlgorithmiaSimpleAuth.swift; sourceTree = "<group>"; };
-		036FDABD1DC8BC9200E91C9F /* AlgoAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlgoAPIClient.swift; sourceTree = "<group>"; };
-		036FDABF1DC8C18F00E91C9F /* AlgoEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlgoEntity.swift; sourceTree = "<group>"; };
-		036FDAC11DC8CD4400E91C9F /* AlgoRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlgoRequest.swift; sourceTree = "<group>"; };
-		036FDAC81DC8DF8900E91C9F /* Algorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Algorithm.swift; sourceTree = "<group>"; };
-		036FDACC1DC8E1E000E91C9F /* AlgorithmRef.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlgorithmRef.swift; sourceTree = "<group>"; };
-		036FDACE1DC8EA1500E91C9F /* AlgoResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlgoResponse.swift; sourceTree = "<group>"; };
+		039EADF81DEEF9B800025E17 /* Algorithmia.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Algorithmia.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		03A7FDAC1DCCBAA70075ECCF /* arnold.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = arnold.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -90,6 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				039EADF91DEEF9B800025E17 /* Algorithmia.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -110,20 +94,10 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		03533D5C1DDE29CB009A07E0 /* Data */ = {
-			isa = PBXGroup;
-			children = (
-				03533D5D1DDE29CB009A07E0 /* AlgoDataDirectory.swift */,
-				03533D5E1DDE29CB009A07E0 /* AlgoDataFile.swift */,
-				03533D5F1DDE29CB009A07E0 /* AlgoDataObject.swift */,
-			);
-			path = Data;
-			sourceTree = "<group>";
-		};
 		036FDA731DC8906800E91C9F = {
 			isa = PBXGroup;
 			children = (
-				036FDAAD1DC8922E00E91C9F /* Algorithmia */,
+				039EADF81DEEF9B800025E17 /* Algorithmia.framework */,
 				036FDA7E1DC8906800E91C9F /* AlgorithmiaSwiftDemo */,
 				036FDA931DC8906800E91C9F /* AlgorithmiaSwiftDemoTests */,
 				036FDA9E1DC8906800E91C9F /* AlgorithmiaSwiftDemoUITests */,
@@ -173,53 +147,6 @@
 			path = AlgorithmiaSwiftDemoUITests;
 			sourceTree = "<group>";
 		};
-		036FDAAD1DC8922E00E91C9F /* Algorithmia */ = {
-			isa = PBXGroup;
-			children = (
-				036FDAC71DC8DF8900E91C9F /* Algorithm */,
-				036FDAB71DC8BBBD00E91C9F /* Client */,
-				03533D5C1DDE29CB009A07E0 /* Data */,
-				036FDAAE1DC8931100E91C9F /* AlgorithmiaClient.swift */,
-				036FDAB01DC8940600E91C9F /* Algorithmia.swift */,
-				036C93561DCA5D9E00E2EE97 /* AlgorithmiaConf.swift */,
-			);
-			name = Algorithmia;
-			path = ../Algorithmia;
-			sourceTree = "<group>";
-		};
-		036FDAB71DC8BBBD00E91C9F /* Client */ = {
-			isa = PBXGroup;
-			children = (
-				036FDAB81DC8BBD900E91C9F /* Auth */,
-				036FDABD1DC8BC9200E91C9F /* AlgoAPIClient.swift */,
-				036FDABF1DC8C18F00E91C9F /* AlgoEntity.swift */,
-				036FDAC11DC8CD4400E91C9F /* AlgoRequest.swift */,
-				036FDACE1DC8EA1500E91C9F /* AlgoResponse.swift */,
-				03533D631DDE2DF6009A07E0 /* AlgoResponseData.swift */,
-			);
-			path = Client;
-			sourceTree = "<group>";
-		};
-		036FDAB81DC8BBD900E91C9F /* Auth */ = {
-			isa = PBXGroup;
-			children = (
-				036FDAB91DC8BBD900E91C9F /* AlgorithmiaAuth.swift */,
-				036FDABA1DC8BBD900E91C9F /* AlgorithmiaSimpleAuth.swift */,
-			);
-			path = Auth;
-			sourceTree = "<group>";
-		};
-		036FDAC71DC8DF8900E91C9F /* Algorithm */ = {
-			isa = PBXGroup;
-			children = (
-				036FDAC81DC8DF8900E91C9F /* Algorithm.swift */,
-				036FDACC1DC8E1E000E91C9F /* AlgorithmRef.swift */,
-				036C93581DCAC5E600E2EE97 /* AlgoError.swift */,
-				033A266E1DD2632A00F111FC /* AlgoOption.swift */,
-			);
-			path = Algorithm;
-			sourceTree = "<group>";
-		};
 		03A7FDAB1DCCBA9B0075ECCF /* Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -238,6 +165,7 @@
 				036FDA781DC8906800E91C9F /* Sources */,
 				036FDA791DC8906800E91C9F /* Frameworks */,
 				036FDA7A1DC8906800E91C9F /* Resources */,
+				039EADFB1DEEF9B800025E17 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -364,24 +292,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				036FDA821DC8906800E91C9F /* ViewController.swift in Sources */,
-				03533D611DDE29CB009A07E0 /* AlgoDataFile.swift in Sources */,
-				036FDACD1DC8E1E000E91C9F /* AlgorithmRef.swift in Sources */,
-				036FDABE1DC8BC9200E91C9F /* AlgoAPIClient.swift in Sources */,
-				036FDAB11DC8940600E91C9F /* Algorithmia.swift in Sources */,
-				03533D601DDE29CB009A07E0 /* AlgoDataDirectory.swift in Sources */,
 				036FDA801DC8906800E91C9F /* AppDelegate.swift in Sources */,
-				036C93571DCA5D9E00E2EE97 /* AlgorithmiaConf.swift in Sources */,
-				036FDABC1DC8BBD900E91C9F /* AlgorithmiaSimpleAuth.swift in Sources */,
-				036FDABB1DC8BBD900E91C9F /* AlgorithmiaAuth.swift in Sources */,
-				036FDAC01DC8C18F00E91C9F /* AlgoEntity.swift in Sources */,
-				036FDAC91DC8DF8900E91C9F /* Algorithm.swift in Sources */,
-				03533D641DDE2DF6009A07E0 /* AlgoResponseData.swift in Sources */,
-				036FDAAF1DC8931100E91C9F /* AlgorithmiaClient.swift in Sources */,
-				036FDAC21DC8CD4400E91C9F /* AlgoRequest.swift in Sources */,
-				036FDACF1DC8EA1500E91C9F /* AlgoResponse.swift in Sources */,
-				03533D621DDE29CB009A07E0 /* AlgoDataObject.swift in Sources */,
-				033A266F1DD2632A00F111FC /* AlgoOption.swift in Sources */,
-				036C93591DCAC5E600E2EE97 /* AlgoError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
