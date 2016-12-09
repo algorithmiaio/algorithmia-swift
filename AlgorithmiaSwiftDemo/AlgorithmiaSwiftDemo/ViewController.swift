@@ -17,6 +17,7 @@ class ViewController: UIViewController ,UIImagePickerControllerDelegate, UINavig
     let resultPath = "data://.my/test/result.jpg"
     @IBOutlet weak var srcImageView: UIImageView!
     @IBOutlet weak var resultImageView: UIImageView!
+    @IBOutlet weak var statusLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +53,15 @@ class ViewController: UIViewController ,UIImagePickerControllerDelegate, UINavig
     
     func startProcess() {
         uploadImage()
+        statusLabel.text = "Processing image..."
+    }
+    
+    func display(error:Error) {
+        DispatchQueue.main.async {
+            if let error = error as? AlgoError {
+            self.statusLabel.text = error.localizedDescription
+            }
+        }
     }
     
     func uploadImage() {
@@ -60,6 +70,7 @@ class ViewController: UIViewController ,UIImagePickerControllerDelegate, UINavig
         file.put(data: UIImageJPEGRepresentation(image!, 0.7)!) { error in
             if let error = error {
                 print(error)
+                self.display(error: error)
                 return
             }
             self.processImage(file: file)
@@ -81,6 +92,7 @@ class ViewController: UIViewController ,UIImagePickerControllerDelegate, UINavig
         self.client.algo(algoUri: "algo://deeplearning/DeepFilter").pipe(json: param, completion: { (response, error) in
             if let error = error {
                 print(error)
+                self.display(error: error)
                 return
             }
             self.downloadOutput(file: self.client.file(self.resultPath))
@@ -92,10 +104,12 @@ class ViewController: UIViewController ,UIImagePickerControllerDelegate, UINavig
         file.getData { (data, error) in
             if let error = error {
                 print(error)
+                self.display(error: error)
                 return
             }
             DispatchQueue.main.async {
                 self.resultImageView.image = UIImage(data: data!)
+                self.statusLabel.text = " "
             }
         }
         
