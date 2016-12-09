@@ -13,12 +13,13 @@ For API documentation, see the [SwiftDocs](https://algorithmia.com/docs/lang/swi
 
 # Getting started
 
-## Installation 
+## Installation
 
 ### CocoaPods
 
 You can install via CocoaPods by adding it to your `Podfile`:
-```
+
+```ruby
 use_frameworks!
 
 source 'https://github.com/CocoaPods/Specs.git'
@@ -68,7 +69,7 @@ foo.pipe(text: "foo") { resp, error in
 ### JSON input/output
 
 Call an algorithm with JSON input by simply passing in a type that can be serialized to JSON:
-most notably python dicts and arrays. 
+most notably python dicts and arrays.
 For algorithms that return JSON, call `getJson` method of the response to get the appropriate
 deserialized type.
 
@@ -89,7 +90,7 @@ If you already have serialzied JSON, you can call as follows:
 let foo = client.algo("")
 let jsonWords = "[\"transformer\", \"terraforms\", \"retransform\"]"
 foo.pipe(rawJson: jsonWords) { resp, error in
-   
+
 }
 ```
 ### Binary input/output
@@ -207,7 +208,7 @@ Delete files and directories by calling `delete` on their respective `AlgoDataFi
 if it contains files or other directories.
 
 ```swift
-client.file("data://.my/robots/C-3PO.txt").delete() { error in 
+client.file("data://.my/robots/C-3PO.txt").delete() { error in
 ...
 }
 client.dir("data://.my/robots").delete(force: false) { result, error in
