@@ -4,7 +4,7 @@ A Swift/iOS client library for the Algorithmia API
 
 Note: This client was written with Swift 3.0 (Xcode 8, iOS 10)
 
-For API documentation, see the [SwiftDocs](https://algorithmia.com/docs/lang/swift)
+For API documentation, see the [SwiftDocs](https://algorithmia.com/developers/clients/swift)
 
 [![CocoaPods](https://img.shields.io/cocoapods/v/Algorithmia.svg)]()
 [![CocoaPods](https://img.shields.io/cocoapods/l/Algorithmia.svg)]()
