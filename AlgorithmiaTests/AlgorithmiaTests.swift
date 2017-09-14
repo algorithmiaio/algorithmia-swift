@@ -43,6 +43,27 @@ class AlgorithmiaTests: XCTestCase {
         }
     }
     
+    /// Http timeout algorithm test
+    func testHttpTimeoutAlgorithm() {
+        
+        let expect = expectation(description: "Swift http library timeout algorithm test")
+        _ = client?.algo(algoUri: "bunneh/Sleep/0.1.0").pipe(text: "249" , completion: { resp, error in
+            if (error == nil) {
+                print(resp.getText())
+                print("TESTING SHIT")
+            }
+            else {
+                print("Got error: \(error)")
+            }
+            expect.fulfill()
+        })
+        waitForExpectations(timeout: 300.0) { error in
+            if let error = error {
+                XCTFail("WaitForExectationsWithTimeout error: \(error)")
+            }
+        }
+    }
+    
     /// JSON input/output test for API
     func testJsonAlgorithm() {
 

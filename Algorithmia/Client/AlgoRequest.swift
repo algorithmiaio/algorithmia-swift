@@ -90,7 +90,7 @@ public class AlgoRequest {
     }
     
     func execute(completion:@escaping AlgoCompletionHandler) {
-        var httpRequest = URLRequest(url: url)
+        var httpRequest = URLRequest(url: url, timeoutInterval: 0)
         httpRequest.httpMethod = method.rawValue
         
         // HTTP headers
