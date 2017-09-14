@@ -50,7 +50,6 @@ class AlgorithmiaTests: XCTestCase {
         _ = client?.algo(algoUri: "bunneh/Sleep/0.1.0").pipe(text: "249" , completion: { resp, error in
             if (error == nil) {
                 print(resp.getText())
-                print("TESTING SHIT")
             }
             else {
                 print("Got error: \(error)")
