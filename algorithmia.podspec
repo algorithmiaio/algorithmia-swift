@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'algorithmia'
-  s.version          = '0.1.2'
+  s.version          = '0.1.3'
   s.summary          = 'Client for calling algorithms hosted on the Algorithmia marketplace'
   s.description      = <<-DESC
 The Algorithmia Swift client provides Swift and iOS developers
